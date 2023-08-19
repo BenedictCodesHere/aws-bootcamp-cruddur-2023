@@ -16,6 +16,14 @@ from services.messages import *
 from services.create_message import *
 from services.show_activity import *
 
+# Manual Library
+from lib.cognito_token_verification import CognitoTokenVerification
+
+
+# FLASK_AWSCOGNITO
+# from flask_awscognito import AWSCognitoAuthentication
+
+
 # HONEYCOMB
 # imports
 from opentelemetry import trace
@@ -50,6 +58,7 @@ from flask import got_request_exception
 # LOGGER.info("test log")
 
 
+
 # Initialize tracing and an exporter that can send data to Honeycomb
 provider = TracerProvider()
 processor = BatchSpanProcessor(OTLPSpanExporter())
@@ -70,6 +79,19 @@ tracer = trace.get_tracer(__name__)
 
 
 app = Flask(__name__)
+app.logger.setLevel(logging.DEBUG)
+
+cognito_token_verification = CognitoTokenVerification
+
+
+# FLASK_AWSCOGNITO
+# app.config['AWS_COGNITO_USER_POOL_ID'] = os.getenv("AWS_COGNITO_USER_POOL_ID")
+# app.config['AWS_COGNITO_USER_POOL_CLIENT_ID'] = os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID")
+# aws_auth = AWSCognitoAuthentication(app)
+
+
+
+
 
 # X-RAY
 XRayMiddleware(app, xray_recorder)
@@ -156,14 +178,18 @@ def data_create_message():
 
 @app.route("/api/activities/home", methods=['GET'])
 # @xray_recorder.capture('activities_home')
+@aws_auth.authentication_required
 def data_home():
-  app.logger.info("AUTH HEADER")
+  app.logger.debug("AUTH HEADER")
   print('AUTH HEADER BREHREHR')
   print(
     request.headers.get('Authorization')
   )
  
   data = HomeActivities.run()  # logger=LOGGER in brackets
+  claims = aws_auth.claims
+  app.logger.debug("claims")
+  app.logger.debug(claims)
   return data, 200
 
   
