@@ -17,7 +17,7 @@ from services.create_message import *
 from services.show_activity import *
 
 # Manual Library
-from lib.cognito_token_verification import CognitoTokenVerification
+from lib.cognito_jwt_token import CognitoJwtToken
 
 
 # FLASK_AWSCOGNITO
@@ -81,7 +81,11 @@ tracer = trace.get_tracer(__name__)
 app = Flask(__name__)
 app.logger.setLevel(logging.DEBUG)
 
-cognito_token_verification = CognitoTokenVerification
+cognito_jwt_token = CognitoJwtToken(
+  user_pool_id= os.getenv("AWS_COGNITO_USER_POOL_ID"), 
+  user_pool_client_id= os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"),
+  region= os.getenv("AWS_DEFAULT_REGION")
+)
 
 
 # FLASK_AWSCOGNITO
@@ -178,18 +182,27 @@ def data_create_message():
 
 @app.route("/api/activities/home", methods=['GET'])
 # @xray_recorder.capture('activities_home')
-@aws_auth.authentication_required
+# @aws_auth.authentication_required
 def data_home():
+  
   app.logger.debug("AUTH HEADER")
   print('AUTH HEADER BREHREHR')
   print(
     request.headers.get('Authorization')
   )
- 
-  data = HomeActivities.run()  # logger=LOGGER in brackets
-  claims = aws_auth.claims
+  access_token = CognitoJwtToken.extract_access_token(request.headers)
+  try:
+      claims = cognito_jwt_token.token_service.verify(access_token)
+  except TokenVerifyError as e:
+      _ = request.data
+      abort(make_response(jsonify(message=str(e)), 401))
+
   app.logger.debug("claims")
   app.logger.debug(claims)
+
+  data = HomeActivities.run()  # logger=LOGGER in brackets
+  # claims = aws_auth.claims
+  
   return data, 200
 
   

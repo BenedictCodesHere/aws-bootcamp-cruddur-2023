@@ -7,10 +7,12 @@ from jose.utils import base64url_decode
 class FlaskAWSCognitoError(Exception):
     pass
 
+
+
 class TokenVerifyError(Exception):
     pass
 
-class CognitoTokenVerification:
+class CognitoJwtToken:
     def __init__(self, user_pool_id, user_pool_client_id, region, request_client=None):
         self.region = region
         if not self.region:
@@ -23,6 +25,14 @@ class CognitoTokenVerification:
         else:
             self.request_client = request_client
         self._load_jwk_keys()
+
+    @classmethod
+    def extract_access_token(request_headers):
+        access_token = None
+        auth_header = request_headers.get("Authorization")
+        if auth_header and " " in auth_header:
+            _, access_token = auth_header.split()
+        return access_token
 
     def _load_jwk_keys(self):
         keys_url = f"https://cognito-idp.{self.region}.amazonaws.com/{self.user_pool_id}/.well-known/jwks.json"
@@ -103,3 +113,4 @@ class CognitoTokenVerification:
         self._check_audience(claims)
 
         self.claims = claims
+        return claims
