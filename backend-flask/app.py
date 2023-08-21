@@ -17,7 +17,7 @@ from services.create_message import *
 from services.show_activity import *
 
 # Manual Library
-from lib.cognito_jwt_token import CognitoJwtToken
+from lib.cognito_jwt_token import CognitoJwtToken, TokenVerifyError
 
 
 # FLASK_AWSCOGNITO
@@ -190,17 +190,26 @@ def data_home():
   print(
     request.headers.get('Authorization')
   )
+  app.logger.debug("Request headers:")
+  app.logger.debug(request.headers)
   access_token = CognitoJwtToken.extract_access_token(request.headers)
   try:
-      claims = cognito_jwt_token.token_service.verify(access_token)
+      claims = cognito_jwt_token.verify(access_token)
+      # authenticated request
+      app.logger.debug("authenticated")
+      app.logger.debug("claims")
+      app.logger.debug(claims)
+      app.logger.debug(claims["username"])
+      data = HomeActivities.run(cognito_user_id=claims['username'])
   except TokenVerifyError as e:
-      _ = request.data
-      abort(make_response(jsonify(message=str(e)), 401))
+    # unauthenticated request
+      app.logger.debug(e)
+      app.logger.debug("unauthenticated")
+      data = HomeActivities.run()
+      
+  
 
-  app.logger.debug("claims")
-  app.logger.debug(claims)
-
-  data = HomeActivities.run()  # logger=LOGGER in brackets
+  # data = HomeActivities.run()  # logger=LOGGER in brackets
   # claims = aws_auth.claims
   
   return data, 200
