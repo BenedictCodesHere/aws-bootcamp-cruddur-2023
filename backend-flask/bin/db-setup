@@ -12,7 +12,16 @@ bin_path="$(find . -type d -name "bin" -path "./backend-flask/*")"
 
 echo $bin_path
 
-source "$bin_path/db-drop"
-source "$bin_path/db-create"
-source "$bin_path/db-schema-load"
-source "$bin_path/db-seed"
+if [ "$1" == "prod" ]; then
+
+    source "$bin_path/db-drop" "prod"
+    source "$bin_path/db-create" "prod"
+    source "$bin_path/db-schema-load" "prod"
+    source "$bin_path/db-seed" "prod"
+
+else
+    source "$bin_path/db-drop"
+    source "$bin_path/db-create"
+    source "$bin_path/db-schema-load"
+    source "$bin_path/db-seed"
+fi
