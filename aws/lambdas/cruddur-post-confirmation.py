@@ -1,5 +1,6 @@
 import json
 import psycopg2
+import os
 
 def lambda_handler(event, context):
     user = event['request']['userAttributes']
@@ -10,12 +11,11 @@ def lambda_handler(event, context):
     user_handle       = user['preferred_username']
     user_cognito_id   = user['sub']
     try:
-        conn = psycopg2.connect(os.getenv('CONNECTION_URL'))
-        cur = conn.cursor()
+        print('Entered try')
         sql = f"""
             INSERT INTO users (
                 display_name,
-                EMAIL,
+                email,
                 handle, 
                 cognito_user_id
             ) 
@@ -26,7 +26,10 @@ def lambda_handler(event, context):
                 '{user_cognito_id}'
             )
         """
-
+        print('SQL Statement ------')
+        print(sql)
+        conn = psycopg2.connect(os.getenv('CONNECTION_URL'))
+        cur = conn.cursor()
         cur.execute(sql)
         conn.commit() 
 
@@ -34,9 +37,8 @@ def lambda_handler(event, context):
         print(error)
         
     finally:
-        if conn is not None:
-            cur.close()
-            conn.close()
-            print('Database connection closed.')
-
+      if conn is not None:
+        cur.close()
+        conn.close()
+        print('Database connection closed.')
     return event
