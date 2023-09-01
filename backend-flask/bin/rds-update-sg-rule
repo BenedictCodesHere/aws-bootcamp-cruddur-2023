@@ -7,7 +7,7 @@ printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
 echo $DB_SG_ID
 echo $DB_SG_RULE_ID
-echo $GITPOD_IP
+echo $WORKSPACE_IP
 
 aws ec2 modify-security-group-rules \
     --group-id $DB_SG_ID \
