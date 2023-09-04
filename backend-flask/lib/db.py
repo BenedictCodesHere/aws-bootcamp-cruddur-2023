@@ -13,8 +13,23 @@ class Db:
   def init_pool(self):
     connection_url = os.getenv("CONNECTION_URL")
     self.pool = ConnectionPool(connection_url)
+
+  def query_commit_returning_id(self, sql, *args):
+    print('SQL STATEMENT START [commit with returning]------------')
+    print(sql)
+    print('SQL STATEMENT END [commit with returning]-----------')
+    try:
+      conn = self.pool.connection()
+      cur = conn.cursor()
+      cur.execute(sql, *args)
+      returning_id = cur.fetchone()[0]
+      conn.commit()
+      return returning_id
+    except Exception as err:
+      self.print_sql_err(err)
+
   # we want to commit data such as insert
-  def query_commit(self):
+  def query_commit(self, sql):
     try:
       conn = self.pool.connection()
       cur = conn.cursor()
