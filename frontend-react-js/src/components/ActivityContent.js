@@ -52,6 +52,7 @@ export default function ActivityContent(props) {
       <div className='activity_avatar'></div>
       <div className='activity_content'>
         <div className='activity_meta'>
+          {/* SHOWING INCORRECT props.activity.handle */}
           <Link className='activity_identity' to={`/@`+props.activity.handle}>
             <div className='display_name'>{props.activity.display_name}</div>
             <div className="handle">@{props.activity.handle}</div>

@@ -56,6 +56,8 @@ const checkAuth = async () => {
         display_name: cognito_user.attributes.name,
         handle: cognito_user.attributes.preferred_username
       })
+      console.log(`Display name: ${cognito_user.attributes.name}`);
+      console.log(`Handle: ${cognito_user.attributes.preferred_username}`)
   })
   .catch((err) => console.log(err));
 };
@@ -90,8 +92,11 @@ const checkAuth = async () => {
           title="Home" 
           setReplyActivity={setReplyActivity} 
           setPopped={setPoppedReply} 
+          // TO FIX: INCORRECT HANDLE AND DISPLAY NAME in activities
+          // CHECK: setActivities, database data retrieval
           activities={activities} 
         />
+      {/* Sidebar currently showing correct handle and display name.  */}
       </div>
       <DesktopSidebar user={user} />
     </article>
