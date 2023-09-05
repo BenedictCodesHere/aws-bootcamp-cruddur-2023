@@ -30,6 +30,13 @@ class Db:
     connection_url = os.getenv("CONNECTION_URL")
     self.pool = ConnectionPool(connection_url)
 
+  def print_params(self,params):
+    blue = '\033[94m'
+    no_color = '\033[0m'
+    print(f'{blue} SQL Params:{no_color}')
+    for key, value in params.items():
+      print(key, ":", value)
+
   def print_sql(self, title, sql):
     print("\n")
     cyan = '\033[96m'
@@ -39,11 +46,9 @@ class Db:
   # we want to commit data such as insert
   # check for uppercase RETURNING
   def query_commit(self, sql, params={}):
-    
     print(sql + "\n")
     pattern = r"\bRETURNING\b"
     is_returning_id = re.search(pattern, sql)
-   
     self.print_sql('commit with returning', sql)
     print('SQL STATEMENT END [commit with returning]-----------')
     try:
