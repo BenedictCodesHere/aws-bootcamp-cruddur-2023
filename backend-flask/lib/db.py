@@ -12,8 +12,15 @@ class Db:
   def __init__(self):
     self.init_pool()
 
-  def template(self, file, folder=''):
-    template_path = os.path.join(app.root_path, 'db', 'sql', folder, file + '.sql')
+  def template(self,*args):
+    pathing = list((app.root_path,'db','sql',) + args)
+    pathing[-1] = pathing[-1] + ".sql"
+    template_path = os.path.join(*pathing)
+
+    green = '\033[92m'
+    no_color = '\033[0m'
+    print("\n")
+    print(f'{green} Load SQL Template: {template_path} {no_color}')
 
     with open(template_path, 'r') as f:
       template_content = f.read()
@@ -50,10 +57,8 @@ class Db:
           return returning_id
     except Exception as err:
       self.print_sql_err(err)
-
- 
- 
-  # when we want to return a json object
+  
+  # when we want to return an array of json objects
   def query_array_json(self, sql, params={}):
     self.print_sql('array', sql)
     print(sql)
@@ -67,6 +72,8 @@ class Db:
         # the first field being the data
         json = cur.fetchone()
         return json[0]
+
+  # when we want to return a json object
   def query_object_json(self, sql, params={}):
     self.print_sql('json', sql)
     print(sql)
@@ -76,9 +83,11 @@ class Db:
       with conn.cursor() as cur:
         cur.execute(wrapped_sql, params)
         json = cur.fetchone()
-        return json[0]
+        if json == None:
+          "{}"
+        else:
+          return json[0]
 
-  # when we want to return an array of json objects
 
     
   # define a function that handles and parses psycopg2 exceptions
