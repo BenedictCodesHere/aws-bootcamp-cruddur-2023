@@ -12,8 +12,8 @@ class Db:
   def __init__(self):
     self.init_pool()
 
-  def template(self, name):
-    template_path = os.path.join(app.root_path, 'db', 'sql', name + '.sql')
+  def template(self, file, folder=''):
+    template_path = os.path.join(app.root_path, 'db', 'sql', folder, file + '.sql')
 
     with open(template_path, 'r') as f:
       template_content = f.read()
@@ -22,6 +22,7 @@ class Db:
   def init_pool(self):
     connection_url = os.getenv("CONNECTION_URL")
     self.pool = ConnectionPool(connection_url)
+
   def print_sql(self, title, sql):
     print("\n")
     cyan = '\033[96m'
@@ -30,7 +31,7 @@ class Db:
     print(sql + "\n")
   # we want to commit data such as insert
   # check for uppercase RETURNING
-  def query_commit(self, sql, params):
+  def query_commit(self, sql, params={}):
     
     print(sql + "\n")
     pattern = r"\bRETURNING\b"
@@ -53,25 +54,29 @@ class Db:
  
  
   # when we want to return a json object
-  def query_array_json(self, sql):
-    print('SQL START [array]------------')
+  def query_array_json(self, sql, params={}):
+    self.print_sql('array', sql)
     print(sql)
     print('SQL END [array]-----------')
 
     wrapped_sql = self.query_wrap_array(sql)
     with self.pool.connection() as conn:
       with conn.cursor() as cur:
-        cur.execute(wrapped_sql)
+        cur.execute(wrapped_sql, params)
         # this will return a tuple
         # the first field being the data
         json = cur.fetchone()
         return json[0]
-  def query_object_json(self, sql):
-    print('SQL START \{object\}------------')
+  def query_object_json(self, sql, params={}):
+    self.print_sql('json', sql)
     print(sql)
     print('SQL END \{object\}-----------')
     wrapped_sql = self.query_wrap_object(sql)
-    return json[0]
+    with self.pool.connection() as conn:
+      with conn.cursor() as cur:
+        cur.execute(wrapped_sql, params)
+        json = cur.fetchone()
+        return json[0]
 
   # when we want to return an array of json objects
 
