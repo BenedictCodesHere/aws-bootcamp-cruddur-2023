@@ -80,6 +80,7 @@ const checkAuth = async () => {
           popped={popped}
           setPopped={setPopped} 
           setActivities={setActivities} 
+          user={user}
         />
         <ReplyForm 
           activity={replyActivity} 
