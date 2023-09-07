@@ -32,7 +32,7 @@ def lambda_handler(event, context):
             user_cognito_id
         ]
         cur.execute(sql, 
-        *params
+        params
         )
         conn.commit() 
 
