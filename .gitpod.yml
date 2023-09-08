@@ -37,7 +37,7 @@ tasks:
       sudo apt install -y postgresql-client-13 libpq-dev
       sudo apt-get install apt-utils
     command: 
-      source "$THEIA_WORKSPACE_ROOT/backend-flask/bin/rds-update-sg-rule" 
+      source "$THEIA_WORKSPACE_ROOT/backend-flask/bin/rds/update-sg-rule" 
   - name: react-js
     command: |
       cd ./frontend-react-js
