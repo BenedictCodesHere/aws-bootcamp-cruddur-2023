@@ -12,7 +12,7 @@ if len(sys.argv) == 2:
 
 ddb = boto3.client('dynamodb', **attrs)
 
-table_name = 'cruddur-message'
+table_name = 'cruddur-messages'
 
 response = ddb.create_table(
     AttributeDefinitions=[
@@ -30,7 +30,8 @@ response = ddb.create_table(
         {
             'AttributeName': 'pk',
             'KeyType': 'HASH'
-        },{
+        },
+        {
             'AttributeName': 'sk',
             'KeyType': 'RANGE'
         }
