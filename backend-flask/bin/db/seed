@@ -10,6 +10,8 @@ seed_path=$(find . -name "seed.sql")
 echo $seed_path
 echo "db-seed"
 
+CONNECTION_URL="postgresql://postgres:password@localhost:5432/cruddur"
+
 if [ "$1" == "prod" ]; then
     echo "Running in production mode"
     URL=$PROD_CONNECTION_URL
