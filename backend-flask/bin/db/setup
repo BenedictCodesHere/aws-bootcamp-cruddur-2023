@@ -8,23 +8,23 @@ printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 echo "db-setup"
 
 
-bin_path="$(find . -type d -name "db" -path "./backend-flask/bin")"
+bin_path="$(realpath .)/backend-flask/bin"
 
 echo $bin_path
 echo $bin_path
 
 if [ "$1" == "prod" ]; then
 
-    source "$bin_path/drop" "prod"
-    source "$bin_path/create" "prod"
-    source "$bin_path/schema-load" "prod"
-    source "$bin_path/seed" "prod"
-    source "$bin_path/update-cognito-user-ids" "prod"
+    source "$bin_path/db/drop" "prod"
+    source "$bin_path/db/create" "prod"
+    source "$bin_path/db/schema-load" "prod"
+    source "$bin_path/db/seed" "prod"
+    source "$bin_path/db/update-cognito-user-ids" "prod"
 
 else
-    source "$bin_path/drop"
-    source "$bin_path/create"
-    source "$bin_path/schema-load"
-    source "$bin_path/seed"
-    source "$bin_path/update-cognito-user-ids"
+    source "$bin_path/db/drop"
+    source "$bin_path/db/create"
+    source "$bin_path/db/schema-load"
+    source "$bin_path/db/seed"
+    python "$bin_path/db/update-cognito-user-ids"
 fi

@@ -7,6 +7,8 @@ printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
 echo "db-drop"
 
+CONNECTION_URL="postgresql://postgres:password@localhost:5432/cruddur"
+
 NO_DB_CONNECTION_URL=$(sed 's/\/cruddur//g' <<<"$CONNECTION_URL")
 
 psql $NO_DB_CONNECTION_URL -c "DROP DATABASE IF EXISTS cruddur;"
