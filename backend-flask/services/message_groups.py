@@ -5,6 +5,8 @@ from lib.db import db
 # from lib.momento import MomentoCounter
 
 class MessageGroups:
+  # Being passed from app.py the claims['sub'] from AWSCognito.
+  #  The logged in user's id is being passed along.
   def run(cognito_user_id):
     model = {
       'errors': None,
