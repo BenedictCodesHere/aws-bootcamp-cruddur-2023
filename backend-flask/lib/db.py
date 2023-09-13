@@ -64,7 +64,7 @@ class Db:
       self.print_sql_err(err)
 
   # when we want to return a a single value
-  def query_value(self,sql,params={}):
+  def query_value(self, sql, params={}):
     self.print_sql('value',sql,params)
 
     with self.pool.connection() as conn:
