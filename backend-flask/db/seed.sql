@@ -1,12 +1,12 @@
 INSERT INTO public.users (display_name, handle, email, cognito_user_id)
 VALUES
-  ('Andrew Brown', 'andrewbrown' ,'andrewbegginsbobberson@hotmail.com', 'MOCK'),
-  ('Andrew Bayko', 'bayko' ,'bigginsbegginsonbayko@hotmail.com','MOCK');
+  ('Kestrel Jack', 'KestrelBlaster' ,'cloudagemthrowaway5@gmail.com', 'MOCK'),
+  ('Horace Turnbull', 'turninghorace' ,'timberbertim88@gmail.com','MOCK');
 
 INSERT INTO public.activities (user_uuid, message, expires_at)
 VALUES
   (
-    (SELECT uuid from public.users WHERE users.handle = 'andrewbrown' LIMIT 1),
+    (SELECT uuid from public.users WHERE users.handle = 'KestrelBlaster' LIMIT 1),
     'This was imported as seed data!',
     current_timestamp + interval '10 day'
   );
