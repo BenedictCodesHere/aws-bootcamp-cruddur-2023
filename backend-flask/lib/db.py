@@ -46,7 +46,7 @@ class Db:
   # we want to commit data such as insert
   # check for uppercase RETURNING
   def query_commit(self, sql, params={}):
-    print(sql + "\n")
+    print('commit', sql, params)
     pattern = r"\bRETURNING\b"
     is_returning_id = re.search(pattern, sql)
     self.print_sql('commit with returning', sql)
