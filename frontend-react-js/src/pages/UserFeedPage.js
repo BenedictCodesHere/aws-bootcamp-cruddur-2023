@@ -9,6 +9,7 @@ import ActivityForm from '../components/ActivityForm';
 
 // [TODO] Authenication
 import Cookies from 'js-cookie'
+import checkAuth from '../lib/CheckAuth';
 
 export default function UserFeedPage() {
   const [activities, setActivities] = React.useState([]);
@@ -36,16 +37,7 @@ export default function UserFeedPage() {
     }
   };
 
-  const checkAuth = async () => {
-    console.log('checkAuth')
-    // [TODO] Authenication
-    if (Cookies.get('user.logged_in')) {
-      setUser({
-        display_name: Cookies.get('user.name'),
-        handle: Cookies.get('user.username')
-      })
-    }
-  };
+  
 
   React.useEffect(()=>{
     //prevents double call
@@ -53,7 +45,7 @@ export default function UserFeedPage() {
     dataFetchedRef.current = true;
 
     loadData();
-    checkAuth();
+    checkAuth(setUser);
   }, [])
 
   return (

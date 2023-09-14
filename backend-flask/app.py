@@ -4,7 +4,7 @@ from flask import got_request_exception
 from flask_cors import CORS, cross_origin
 import os
 
-
+from services.users_short import *
 from services.home_activities import *
 from services.notifications_activities import *
 from services.user_activities import *
@@ -170,7 +170,8 @@ def data_message_groups():
 
 @app.route("/api/messages/<string:message_group_uuid>", methods=['GET'])
 def data_messages(message_group_uuid):
-  print('MESSAGE GROUP UUID:', message_group_uuid)
+  app.logger.debug('MESSAGE GROUP UUID:')
+  app.logger.debug(message_group_uuid)
   access_token = CognitoJwtToken.extract_access_token(request.headers)
   try:
       claims = cognito_jwt_token.verify(access_token)
@@ -180,8 +181,9 @@ def data_messages(message_group_uuid):
       app.logger.debug(claims)
       cognito_user_id = claims['sub']
       model = Messages.run(
-        cognito_user_id=cognito_user_id,
-        message_group_uuid=message_group_uuid)
+        message_group_uuid=message_group_uuid,
+        cognito_user_id=cognito_user_id
+        )
       if model['errors'] is not None:
         return model['errors'], 422
       else:
@@ -320,6 +322,11 @@ def data_activities_reply(activity_uuid):
   else:
     return model['data'], 200
   return
+
+@app.route("/api/users/@<string:handle>/short", methods=['GET'])
+def data_users_short(handle):
+  data = UsersShort.run(handle)
+  return data, 200
 
 if __name__ == "__main__":
   app.run(debug=True)

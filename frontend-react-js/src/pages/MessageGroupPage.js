@@ -57,7 +57,7 @@ export default function MessageGroupPage() {
     }
   };  
 
-  checkAuth(setUser);
+
 
   React.useEffect(()=>{
     //prevents double call
@@ -66,7 +66,7 @@ export default function MessageGroupPage() {
 
     loadMessageGroupsData();
     loadMessageGroupData();
-    checkAuth();
+    checkAuth(setUser);
   }, [])
   return (
     <article>
