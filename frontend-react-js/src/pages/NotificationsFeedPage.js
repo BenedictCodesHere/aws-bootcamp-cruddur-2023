@@ -7,8 +7,6 @@ import ActivityFeed from '../components/ActivityFeed';
 import ActivityForm from '../components/ActivityForm';
 import ReplyForm from '../components/ReplyForm';
 
-// [TODO] Authenication
-import Cookies from 'js-cookie'
 import checkAuth from '../lib/CheckAuth';
 
 export default function NotificationsFeedPage() {
