@@ -1,30 +1,16 @@
 #! /usr/bin/bash
 set -e # stop if it fails at any point
+
 CYAN='\033[1;36m'
 NO_COLOR='\033[0m'
 LABEL="db-setup"
-printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+printf "${CYAN}==== ${LABEL}${NO_COLOR}\n"
 
-echo "db-setup"
+ABS_PATH=$(readlink -f "$0")
+DB_PATH=$(dirname $ABS_PATH)
 
-
-bin_path="$(realpath .)/backend-flask/bin"
-
-echo $bin_path
-echo $bin_path
-
-if [ "$1" == "prod" ]; then
-
-    source "$bin_path/db/drop" "prod"
-    source "$bin_path/db/create" "prod"
-    source "$bin_path/db/schema-load" "prod"
-    source "$bin_path/db/seed" "prod"
-    source "$bin_path/db/update-cognito-user-ids" "prod"
-
-else
-    source "$bin_path/db/drop"
-    source "$bin_path/db/create"
-    source "$bin_path/db/schema-load"
-    source "$bin_path/db/seed"
-    python "$bin_path/db/update-cognito-user-ids"
-fi
+source "$DB_PATH/drop"
+source "$DB_PATH/create"
+source "$DB_PATH/schema-load"
+source "$DB_PATH/seed"
+python "$DB_PATH/update_cognito_user_ids"
