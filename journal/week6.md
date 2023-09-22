@@ -56,4 +56,6 @@ The container workflow to deploy the correct containers to ECS has been as follo
     - We have been doing this via AWS CLI, using the create-service command, along with a service definition file, which configures the service in json format.
 
     
+We must also create a network for Docker in the docker-compose, we call this network 'cruddur-net', this makes sure that the containers can talk to each other in the way we want in our development environment.
 
+The environment variables are defined in the gitpod.yml to be generated out at the start of each gitpod workspace deployment, so that there are updated backend and frontend .env files there each gitpod session, which can then  can then be referenced in the docker-compose.yml for the frontend and backend.
