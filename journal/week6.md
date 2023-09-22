@@ -59,3 +59,49 @@ The container workflow to deploy the correct containers to ECS has been as follo
 We must also create a network for Docker in the docker-compose, we call this network 'cruddur-net', this makes sure that the containers can talk to each other in the way we want in our development environment.
 
 The environment variables are defined in the gitpod.yml to be generated out at the start of each gitpod workspace deployment, so that there are updated backend and frontend .env files there each gitpod session, which can then  can then be referenced in the docker-compose.yml for the frontend and backend.
+
+
+To run a container locally:
+### 1. Check if images exist
+
+'''bash
+docker images
+'''
+which should return
+'''bash
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
+'''
+
+### 2. Build the docker image
+The example below is for the backend-flask image.
+    '''bash
+    ABS_PATH=$(readlink -f "$0")
+    BACKEND_PATH=$(dirname $ABS_PATH)
+    BIN_PATH=$(dirname $BACKEND_PATH)
+    PROJECT_PATH=$(dirname $BIN_PATH)
+    BACKEND_FLASK_PATH="$PROJECT_PATH/backend-flask"
+
+    docker build \
+    -f "$BACKEND_FLASK_PATH/Dockerfile.prod" \
+    -t backend-flask-prod \
+    "$BACKEND_FLASK_PATH/."
+    '''
+The 'docker build' command is creating an image for the backend, which builds from the Dockerfile.prod file located in backend-flask using the file referencing flag '-f', and tags the image'backend-flask-prod' using the '-t' flag.
+
+### 3. Run the docker image
+The example below is for the backend-flask image.
+    '''bash
+    ABS_PATH=$(readlink -f "$0")
+    BACKEND_PATH=$(dirname $ABS_PATH)
+    BIN_PATH=$(dirname $BACKEND_PATH)
+    PROJECT_PATH=$(dirname $BIN_PATH)
+    ENVFILE_PATH="$PROJECT_PATH/backend-flask.env"
+
+    docker run --rm \
+    --env-file $ENVFILE_PATH \
+    --network cruddur-net \
+    --publish 4567:4567 \
+    -it backend-flask-prod
+    '''
+    
+Here environment variables are populated from the backend-flask.env file that we generated on Gitpod startup via the Embedded Ruby ERB template. It specifies the network 'cruddur-net' on which the container should run, and publishes the port 4567, making it interactive and adding terminal functionality with '-it' flag, and specifying the image to run, 'backend-flask-prod'
