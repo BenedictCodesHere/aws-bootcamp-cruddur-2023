@@ -104,4 +104,6 @@ The example below is for the backend-flask image.
     -it backend-flask-prod
     '''
     
-Here environment variables are populated from the backend-flask.env file that we generated on Gitpod startup via the Embedded Ruby ERB template. It specifies the network 'cruddur-net' on which the container should run, and publishes the port 4567, making it interactive and adding terminal functionality with '-it' flag, and specifying the image to run, 'backend-flask-prod'
+Here environment variables are populated from the backend-flask.env file that we generated on Gitpod startup via the Embedded Ruby ERB template. It specifies the network 'cruddur-net' on which the container should run, and publishes the port 4567, making it interactive and adding terminal functionality with '-it' flag, and specifying the image to run, 'backend-flask-prod'.
+
+The Dockerfile.prod pulls from AWS ECR image, the python slim-buster in your repo. So you need to be authenticated in order to be able to pull that image to build from.
