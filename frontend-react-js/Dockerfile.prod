@@ -1,5 +1,5 @@
 # Base Image ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-FROM node:16.18 AS build
+FROM node:16.20.2 AS build
 
 ARG REACT_APP_BACKEND_URL
 ARG REACT_APP_AWS_PROJECT_REGION
