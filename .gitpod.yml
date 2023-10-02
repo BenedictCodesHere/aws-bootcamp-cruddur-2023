@@ -35,6 +35,8 @@ tasks:
       cd backend-flask
   - name: cdk
     before: |
+      cd thumbing-serverless-cdk
+      npm install
       npm install aws-cdk -g
 vscode:
   extensions:
