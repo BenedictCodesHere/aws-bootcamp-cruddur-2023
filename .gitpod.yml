@@ -33,6 +33,9 @@ tasks:
       sudo dpkg -i session-manager-plugin.deb
       session-manager-plugin
       cd backend-flask
+  - name: cdk
+    before: |
+      npm install aws-cdk -g
 vscode:
   extensions:
     - 42Crunch.vscode-openapi
