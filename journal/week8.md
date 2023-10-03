@@ -22,3 +22,9 @@ Environment variable chain/hierarchy is always important to understand and check
 On CDK Deploy:
 
 The lambda function and the bucket are created, and alongside them, IAM service roles are created.
+
+
+
+## CLOUDFRONT
+
+- ACM for CloudFront must be hosted in us-east-1
