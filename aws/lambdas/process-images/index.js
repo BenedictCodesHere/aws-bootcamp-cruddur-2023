@@ -18,11 +18,12 @@ exports.handler = async (event) => {
   console.log('srcKey',srcKey)
 
   const dstBucket = bucketName;
-  const dstKey = srcKey.replace(folderInput,folderOutput)
+  filename = path.parse(srcKey).name
+  const dstKey = `${folderOutput}/${filename}.jpg`
   console.log('dstBucket',dstBucket)
   console.log('dstKey',dstKey)
 
   const originalImage = await getOriginalImage(client,srcBucket,srcKey)
   const processedImage = await processImage(originalImage,width,height)
-  await uploadProcessedImage(dstBucket,dstKey,processedImage)
+  await uploadProcessedImage(client,dstBucket,dstKey,processedImage)
 };
