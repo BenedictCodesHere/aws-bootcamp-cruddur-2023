@@ -10,6 +10,12 @@ cdk synth
 
 cdk bootstrap - bootstraps for account, region
 
+## Lambda source code
+
+### Prior to CDK Deploy:
+Run 'npm install' in the 'process-images' directory
+- Otherwise lambda function will hit errors due to missing modules
+
 
 ERRORS - bucket name incorrect
 

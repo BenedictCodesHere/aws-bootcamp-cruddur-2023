@@ -1,5 +1,6 @@
 const process = require('process');
 const {getClient, getOriginalImage, processImage, uploadProcessedImage} = require('./s3-image-processing.js')
+const path = require('path');
 
 const bucketName = process.env.DEST_BUCKET_NAME
 const folderInput = process.env.FOLDER_INPUT
