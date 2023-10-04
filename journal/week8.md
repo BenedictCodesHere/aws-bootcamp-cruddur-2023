@@ -28,3 +28,12 @@ The lambda function and the bucket are created, and alongside them, IAM service 
 ## CLOUDFRONT
 
 - ACM for CloudFront must be hosted in us-east-1
+
+- Set up Route 53 - alias to assets.cruddurclone.com
+
+- Adding the bucket policy from CloudFront to attach to the S3 bucket
+
+
+## Architecture - S3
+- Separating the bucket into assets bucket and processed bucket
+    - Advantage of being able to lock down the originals bucket and separate so only processed is publicly served
