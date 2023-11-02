@@ -74,7 +74,7 @@ REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
 
 ### 2. Build the docker image
 The example below is for the backend-flask image.
-    ```bash
+```bash
     ABS_PATH=$(readlink -f "$0")
     BACKEND_PATH=$(dirname $ABS_PATH)
     BIN_PATH=$(dirname $BACKEND_PATH)
@@ -85,12 +85,12 @@ The example below is for the backend-flask image.
     -f "$BACKEND_FLASK_PATH/Dockerfile.prod" \
     -t backend-flask-prod \
     "$BACKEND_FLASK_PATH/."
-    ```
+```
 The 'docker build' command is creating an image for the backend, which builds from the Dockerfile.prod file located in backend-flask using the file referencing flag '-f', and tags the image'backend-flask-prod' using the '-t' flag.
 
 ### 3. Run the docker image
 The example below is for the backend-flask image.
-    ```bash
+```bash
     ABS_PATH=$(readlink -f "$0")
     BACKEND_PATH=$(dirname $ABS_PATH)
     BIN_PATH=$(dirname $BACKEND_PATH)
@@ -102,7 +102,7 @@ The example below is for the backend-flask image.
     --network cruddur-net \
     --publish 4567:4567 \
     -it backend-flask-prod
-    ```
+```
     
 Here environment variables are populated from the backend-flask.env file that we generated on Gitpod startup via the Embedded Ruby ERB template. It specifies the network 'cruddur-net' on which the container should run, and publishes the port 4567, making it interactive and adding terminal functionality with '-it' flag, and specifying the image to run, 'backend-flask-prod'.
 
