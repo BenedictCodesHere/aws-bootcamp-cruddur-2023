@@ -11,3 +11,11 @@ Checks to see if the user is listed in the RDS instance, in the 'users' table.
 Retrieves the handle and retrieves activities data from this database.
 
 The problem I was running into was that my users table data was not populated with the Cognito User Pool data. So I had to in fact create users in the Cognito User Pool, in order to then pull that data through and update the users table correctly, and retrieve the seed data that I had seeded my database with.
+
+
+## RDS
+Setting up the RDS database
+
+## Cognito Post Confirmation Lambda
+
+## Creating Activities
