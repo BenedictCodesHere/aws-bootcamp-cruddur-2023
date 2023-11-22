@@ -242,14 +242,6 @@ def data_create_message():
 # @xray_recorder.capture('activities_home')
 # @aws_auth.authentication_required
 def data_home():
-  
-  app.logger.debug("AUTH HEADER")
-  print('AUTH HEADER BREHREHR')
-  print(
-    request.headers.get('Authorization')
-  )
-  app.logger.debug("Request headers:")
-  app.logger.debug(request.headers)
   access_token = CognitoJwtToken.extract_access_token(request.headers)
   try:
       claims = cognito_jwt_token.verify(access_token)
