@@ -12,6 +12,7 @@ sys.path.append(parent_path)
 from lib.db import db
 
 
+
 def update_users_with_cognito_user_id(handle,sub):
   sql = """
     UPDATE public.users
@@ -25,7 +26,7 @@ def update_users_with_cognito_user_id(handle,sub):
   })
 
 def get_cognito_user_ids():
-  userpool_id = os.getenv("AWS_COGNITO_USER_POOL_ID")
+  userpool_id = os.getenv("REACT_APP_AWS_USER_POOLS_ID")
   print("userpool id:", userpool_id)
   client = boto3.client('cognito-idp')
   params = {
