@@ -92,7 +92,8 @@ class Db:
   def query_object_json(self, sql, params={}):
     self.print_sql('json', sql, params)
     print(sql)
-    print('SQL END \{object\}-----------')
+    print('SQL END \\{object\\}-----------')
+
     wrapped_sql = self.query_wrap_object(sql)
     with self.pool.connection() as conn:
       with conn.cursor() as cur:

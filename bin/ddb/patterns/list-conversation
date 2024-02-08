@@ -6,10 +6,24 @@ import sys
 import json
 from datetime import datetime, timedelta, timezone
 
+# Get the directory of the current Python script
 current_path = os.path.dirname(os.path.abspath(__file__))
+print("Current Path:", current_path)
+
+# Navigate to the parent directory of the current directory (one level up)
 parent_path = os.path.abspath(os.path.join(current_path, '..', '..', '..'))
-sys.path.append(parent_path)
+print("Parent Path:", parent_path)
+
+# Navigate to the 'backend-flask' directory from the parent directory
+backend_flask_path = os.path.abspath(os.path.join(parent_path, 'backend-flask'))
+print("Backend Flask Path:", backend_flask_path)
+
+# Append the 'backend-flask' directory to the system path
+sys.path.append(backend_flask_path)
+
+
 from lib.db import db
+
 
 attrs = {
   'endpoint_url': 'http://localhost:8000'
