@@ -9,6 +9,8 @@ from datetime import datetime, timedelta, timezone
 current_path = os.path.dirname(os.path.abspath(__file__))
 parent_path = os.path.abspath(os.path.join(current_path, '..', '..', 'backend-flask'))
 sys.path.append(parent_path)
+
+# the db connection relies on a CONNECTION_URL set correctly (localhost/db)
 from lib.db import db
 
 attrs = {
