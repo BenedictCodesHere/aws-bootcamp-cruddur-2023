@@ -1,0 +1,34 @@
+#! /usr/bin/bash
+set -e # stop if it fails at any point
+
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="DB-SETUP"
+colorize(){
+    if [ "$1" == "$LABEL" ]; then
+        printf "${CYAN}== $1 ${NO_COLOR}\n"
+    else printf "${CYAN} $1 ${NO_COLOR}\n"
+    fi  
+}
+colorize "$LABEL"
+
+# Get the directory containing the sourced script
+BIN_PATH=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
+colorize "BIN PATH: $BIN_PATH"
+
+# setup the Postgres DB
+colorize "$CONNECTION_URL BOOTSTRAP PRE"
+source "$BIN_PATH/db/setup"
+colorize "$CONNECTION_URL BOOTSTRAP POST DB SETUP"
+
+# Check if the DynamoDB table exists
+if "$BIN_PATH/ddb/list-tables" | grep -q "cruddur-messages"; then
+    # Drop the DynamoDB table if it exists
+    colorize "Dropping DynamoDB table: cruddur-messages"
+    source "$BIN_PATH/ddb/drop" cruddur-messages
+fi
+
+python "$BIN_PATH/ddb/schema-load"
+colorize "$CONNECTION_URL BOOTSTRAP POST DDB SCHEMA LOAD"
+python "$BIN_PATH/ddb/seed"
+colorize "$CONNECTION_URL BOOTSTRAP POST DDB SEED"
