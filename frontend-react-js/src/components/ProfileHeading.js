@@ -2,18 +2,30 @@ import './ProfileHeading.css';
 import EditProfileButton from '../components/EditProfileButton';
 
 export default function ProfileHeading(props) {
+    const backgroundImage = 'url("https://assets.cruddurclone.com/banners/profile_banner.jpg")'
+    const styles = {
+        backgroundImage: backgroundImage,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+    };
   return (
-    <div className='activity_feed_profile_heading'>
+    <div className='activity_feed_heading profile_heading'>
         <div className='title'>{props.profile.display_name}</div>
         <div className="cruds_count">{`${props.profile.cruds_count} cruds`}</div>
-
+        <div className="banner" style={styles}>
         <div className="avatar">
-            <img src="https://assets.cruddurclone.com/avatars/data.jpg" alt="avatar"/>
+            <img src="https://assets.cruddurclone.com/avatars/processed/data.jpg" alt="avatar"/>
         </div>
-        <div className="display_name">{props.display_name}</div>
-        <div className="handle">@{props.handle}</div>
+        </div>
 
-        <EditProfileButton setPopped={props.setPopped} />
+        <div className="info">
+            <div class="id">
+                <div className="display_name">{props.profile.display_name}</div>
+                <div className="handle">@{props.profile.handle}</div>
+            </div>
+            <EditProfileButton setPopped={props.setPopped} />
+        </div>
+        
     </div>
   );
 }
