@@ -70,14 +70,18 @@ export default function HomeFeedPage() {
           setActivities={setActivities} 
           activities={activities} 
         />
-        <ActivityFeed 
-          title="Home" 
-          setReplyActivity={setReplyActivity} 
-          setPopped={setPoppedReply} 
-          // TO FIX: INCORRECT HANDLE AND DISPLAY NAME in activities
-          // CHECK: setActivities, database data retrieval
-          activities={activities} 
-        />
+        <div className='activity_feed'>
+          <div className='activity_feed_heading'>
+            <div className='title'>Home</div>
+          </div>
+          <ActivityFeed 
+            setReplyActivity={setReplyActivity} 
+            setPopped={setPoppedReply} 
+            // TO FIX: INCORRECT HANDLE AND DISPLAY NAME in activities
+            // CHECK: setActivities, database data retrieval
+            activities={activities} 
+          />
+        </div>
       {/* Sidebar currently showing correct handle and display name.  */}
       </div>
       <DesktopSidebar user={user} />
