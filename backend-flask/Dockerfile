@@ -20,5 +20,8 @@ COPY . .
 
 EXPOSE ${PORT}
 
+# Added this env to help with debugging, stops Python from buffering so that changes we make in the code will reflect straight away in the terminal
+ENV PYTHONUNBUFFERED=1
+
 # CMD (Command)
 CMD ["python3", "-m", "flask", "run", "--host=0.0.0.0", "--port=4567", "--debug"]
