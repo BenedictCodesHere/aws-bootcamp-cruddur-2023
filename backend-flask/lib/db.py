@@ -45,8 +45,10 @@ class Db:
     print(sql, params)
   # we want to commit data such as insert
   # check for uppercase RETURNING
-  def query_commit(self, sql, params={}):
-    print('commit', sql, params)
+  def query_commit(self, sql, params={},verbose=True):
+    if verbose:
+      print('commit', sql, params)
+
     pattern = r"\bRETURNING\b"
     is_returning_id = re.search(pattern, sql)
     self.print_sql('commit with returning', sql)
@@ -64,8 +66,9 @@ class Db:
       self.print_sql_err(err)
 
   # when we want to return a a single value
-  def query_value(self, sql, params={}):
-    self.print_sql('value',sql,params)
+  def query_value(self, sql, params={},verbose=True):
+    if verbose:
+     self.print_sql('value',sql,params)
 
     with self.pool.connection() as conn:
       with conn.cursor() as cur:
@@ -74,8 +77,9 @@ class Db:
         return json[0]
   
   # when we want to return an array of json objects
-  def query_array_json(self, sql, params={}):
-    self.print_sql('array', sql, params)
+  def query_array_json(self, sql, params={},verbose=True):
+    if verbose:
+      self.print_sql('array', sql, params)
     print(sql)
     print('SQL END [array]-----------')
 
@@ -89,8 +93,9 @@ class Db:
         return json[0]
 
   # when we want to return a json object
-  def query_object_json(self, sql, params={}):
-    self.print_sql('json', sql, params)
+  def query_object_json(self, sql, params={},verbose=True):
+    if verbose:
+      self.print_sql('json', sql, params)
     print(sql)
     print('SQL END \\{object\\}-----------')
 
