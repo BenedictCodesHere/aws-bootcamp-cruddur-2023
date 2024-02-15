@@ -27,7 +27,7 @@ export default function ProfileForm(props) {
         body: JSON.stringify(json),
         headers: {
           'Origin': process.env.REACT_APP_FRONTEND_URL,
-          'Authorization': `Bearer ${access_token}`,
+          'Authorization': `${access_token}`,
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         }
@@ -65,7 +65,6 @@ export default function ProfileForm(props) {
       let data = await res.json();
       if (res.status === 200) {
        
-        console.log('presigned url', data)
       } else {
         console.log(res)
       }
