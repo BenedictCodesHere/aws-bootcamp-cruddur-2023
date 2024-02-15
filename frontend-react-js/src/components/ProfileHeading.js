@@ -19,7 +19,7 @@ export default function ProfileHeading(props) {
         </div>
 
         <div className="info">
-            <div class="id">
+            <div className="id">
                 <div className="display_name">{props.profile.display_name}</div>
                 <div className="handle">@{props.profile.handle}</div>
             </div>
