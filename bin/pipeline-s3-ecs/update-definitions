@@ -1,0 +1,52 @@
+#! /usr/bin/bash
+set -e # stop if it fails at any point
+
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="update-definitions"
+colorize(){
+    if [ "$1" == "$LABEL" ]; then
+        printf "${CYAN}== $1 ${NO_COLOR}\n"
+    else printf "${CYAN} $1 ${NO_COLOR}\n"
+    fi  
+}
+colorize "$LABEL"
+
+PIPELINE_PATH=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
+BIN_PATH=$(dirname "$PIPELINE_PATH")
+ROOT_PATH=$(dirname "$BIN_PATH")
+colorize "ROOT PATH: $ROOT_PATH"
+
+# Define the local directory path
+LOCAL_DIR="aws/json/ecs"
+
+# Define the S3 bucket name
+S3_BUCKET="cruddurclone-ecs-definitions"
+
+# Function to upload files to S3
+upload_to_s3() {
+    local source_dir="$1"
+    local s3_key_prefix="$2"
+
+    # Iterate over files in the source directory
+    for file_path in "$source_dir"/*; do
+        # Extract the filename from the file path
+        file_name=$(basename "$file_path")
+
+        # Extract the subdirectory name from the file path
+        sub_dir=$(basename "$(dirname "$file_path")")
+
+        # Upload the file to the corresponding folder in the S3 bucket
+        aws s3 cp "$file_path" "s3://$S3_BUCKET/$s3_key_prefix/$sub_dir/$file_name"
+    done
+}
+
+# Upload files from the service folder
+upload_to_s3 "$LOCAL_DIR/service/backend-flask" "service"
+upload_to_s3 "$LOCAL_DIR/service/frontend-react-js" "service"
+
+# Upload files from the task folder
+upload_to_s3 "$LOCAL_DIR/task/backend-flask" "task"
+upload_to_s3 "$LOCAL_DIR/task/frontend-react-js" "task"
+
+echo "Upload completed."

@@ -6,7 +6,7 @@ ABS_PATH=$(readlink -f "$0")
 BACKEND_PATH=$(dirname $ABS_PATH)
 BIN_PATH=$(dirname $BACKEND_PATH)
 PROJECT_PATH=$(dirname $BIN_PATH)
-SERVICE_PATH="$PROJECT_PATH/aws/json/service-frontend-react-js.json"
+SERVICE_PATH="$PROJECT_PATH/aws/json/ecs/service/frontend-react-js/service-frontend-react-js.json"
 
 echo $SERVICE_PATH
 
