@@ -12,7 +12,7 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...          
       - docker build --file Dockerfile.prod -t backend-flask .
-      - "docker tag $REPO_NAME $IMAGE_URL/$REPO_NAME:$TAG"
+      - "docker tag $REPO_NAME:$TAG $IMAGE_URL/$REPO_NAME:$TAG"
   post_build:
     commands:
       - echo Build completed on `date`
