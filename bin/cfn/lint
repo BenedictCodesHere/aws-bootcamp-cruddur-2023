@@ -1,0 +1,14 @@
+#!/usr/bin/bash
+set -e # stop the execution of the script if it fails
+
+CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/template.yaml"
+
+
+
+echo "CFN LINTING"
+cfn-lint  "$CFN_PATH"
+if [ $? -eq 0 ]; then
+    echo "cfn-lint executed successfully. No issues found."
+else
+    echo "cfn-lint encountered an error or warnings. Please review the output."
+fi

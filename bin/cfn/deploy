@@ -1,0 +1,15 @@
+#! /usr/bin/bash
+set -e # stop the execution of the script if it fails
+
+CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/template.yaml"
+
+DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
+
+source "$DIR/lint"
+
+aws cloudformation deploy \
+    --stack-name "my-cluster" \
+    --s3-bucket "cruddurclone-cfn-artifacts" \
+    --template-file $CFN_PATH \
+    --no-execute-changeset \
+    --capabilities CAPABILITY_NAMED_IAM
