@@ -1,11 +1,14 @@
 #!/usr/bin/bash
 set -e # stop the execution of the script if it fails
+
 if [ "$1" == "cluster" ]; then
     CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/cluster/template.yaml"
 elif [ "$1" == "networking" ]; then
     CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/networking/template.yaml"
 fi
-
+if [ -z "$CFN_PATH" ]; then
+    echo "CFN_PATH is not set. Please set it to the path of the CloudFormation template."
+fi
 
 echo "CFN LINTING"
 cfn-lint  "$CFN_PATH"
