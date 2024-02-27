@@ -20,5 +20,5 @@ aws cloudformation deploy \
     --template-file "$CFN_PATH" \
     --no-execute-changeset \
     --tags group=cruddurclone-cluster \
-    --parameter-overrides "$PARAMETERS" \
+    --parameter-overrides $PARAMETERS \
     --capabilities CAPABILITY_NAMED_IAM

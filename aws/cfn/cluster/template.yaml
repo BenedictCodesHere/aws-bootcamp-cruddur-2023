@@ -135,6 +135,8 @@ Resources:
       LoadBalancerArn: !Ref ALB
       Certificates: 
         - CertificateArn: !Ref CertificateArn
+      Port: 443
+      Protocol: "HTTPS"
   HTTPSListenerRule:
     Type: AWS::ElasticLoadBalancingV2::ListenerRule
     Properties:
@@ -169,7 +171,7 @@ Resources:
       GroupDescription: Public Facing SG for Cruddurclone ALB
       VpcId: 
         Fn::ImportValue:
-          !Sub "${NetworkingStack}VPCId"
+          !Sub "${NetworkingStack}VpcId"
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 443
@@ -189,7 +191,7 @@ Resources:
       GroupDescription: Security for the Cruddurclone Services on Fargate
       VpcId: 
         Fn::ImportValue:
-          !Sub "${NetworkingStack}VPCId"
+          !Sub "${NetworkingStack}VpcId"
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: !Ref BackendPort
@@ -202,7 +204,7 @@ Resources:
       Name: !Sub "${AWS::StackName}BackendTG"
       VpcId: 
         Fn::ImportValue:
-          !Sub "${NetworkingStack}VPCId"
+          !Sub "${NetworkingStack}VpcId"
       Port: !Ref BackendPort
       Protocol: HTTP
       ProtocolVersion: HTTP2
@@ -239,7 +241,7 @@ Resources:
       Name: !Sub "${AWS::StackName}FrontendTG"
       VpcId: 
         Fn::ImportValue:
-          !Sub "${NetworkingStack}VPCId"
+          !Sub "${NetworkingStack}VpcId"
       Port: !Ref FrontendPort
       Protocol: HTTP
       ProtocolVersion: HTTP2
