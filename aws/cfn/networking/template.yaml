@@ -203,7 +203,7 @@ Outputs:
         - !Ref SubnetPrivB
         - !Ref SubnetPrivC
     Export:
-      Name: !Sub "${AWS::StackName}PublicSubnetIds"
+      Name: !Sub "${AWS::StackName}PrivateSubnetIds"
   AvailabilityZones:
     Value: !Join 
       - ","
