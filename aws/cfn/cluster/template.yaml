@@ -63,7 +63,7 @@ Parameters:
     Default: "/api/health-check"
   BackendHealthCheckPort: 
     Type: Number
-    Default: 80
+    Default: 4567
   BackendHealthCheckProtocol:
     Type: String
     Default: HTTP
@@ -183,6 +183,7 @@ Resources:
           ToPort: 80
           CidrIp: 0.0.0.0/0
           Description: Internet HTTP
+  
   # We have to create this SG before the service so we can pass it to the database SG
   ServiceSG:
     Type: AWS::EC2::SecurityGroup
