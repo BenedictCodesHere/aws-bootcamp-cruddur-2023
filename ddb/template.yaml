@@ -4,6 +4,9 @@ Description: |
   - DynamoDB Table
   - DynamoDB Stream
 Parameters:
+  TableName: 
+    Type: String
+    Default: "cruddur-messages"
   PythonRuntime:
     Type: String
     Default: python3.11
@@ -29,6 +32,7 @@ Resources:
         - AttributeName: sk
           AttributeType: S
       TableClass: STANDARD 
+      TableName: !Ref TableName
       KeySchema: 
         - AttributeName: pk
           KeyType: HASH
