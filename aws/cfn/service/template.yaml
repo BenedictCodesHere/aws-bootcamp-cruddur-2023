@@ -105,7 +105,9 @@ Resources:
       PropagateTags: SERVICE
       ServiceConnectConfiguration:
         Enabled: true
-        Namespace: "cruddur"
+        Namespace: 
+          Fn::ImportValue:
+            !Sub "${ClusterStack}ClusterName"
         # TODO - If you want to log
         # LogConfiguration
         Services:
@@ -161,7 +163,7 @@ Resources:
           LogConfiguration:
             LogDriver: 'awslogs'
             Options:
-              awslogs-group: 'cruddur'
+              awslogs-group: 'cruddurclone'
               awslogs-region: !Ref AWS::Region
               awslogs-stream-prefix: !Ref ServiceName
           Environment:
@@ -194,7 +196,7 @@ Resources:
     # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
     Type: AWS::IAM::Role
     Properties:
-      RoleName: CruddurServiceExecutionRole
+      RoleName: CruddurcloneServiceExecutionRole
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -203,7 +205,7 @@ Resources:
               Service: 'ecs-tasks.amazonaws.com'
             Action: 'sts:AssumeRole'
       Policies:
-        - PolicyName: 'cruddur-execution-policy'
+        - PolicyName: 'cruddurclone-execution-policy'
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
@@ -229,7 +231,7 @@ Resources:
     # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
     Type: AWS::IAM::Role
     Properties:
-      RoleName: CruddurServiceTaskRole
+      RoleName: CruddurcloneServiceTaskRole
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -238,7 +240,7 @@ Resources:
               Service: 'ecs-tasks.amazonaws.com'
             Action: 'sts:AssumeRole'
       Policies:
-        - PolicyName: 'cruddur-task-policy'
+        - PolicyName: 'cruddurclone-task-policy'
           PolicyDocument:
             Version: '2012-10-17'
             Statement:

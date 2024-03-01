@@ -1,7 +1,8 @@
+.aws-sam
+config.toml
 docker/**/*
 frontend-react-js/build/*
 *.env
 session-manager-plugin.deb
 node_modules
-
-config.toml
+build.toml
