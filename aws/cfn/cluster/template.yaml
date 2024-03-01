@@ -76,6 +76,9 @@ Parameters:
   BackendUnhealthyThresholdCount:
     Type: Number
     Default: 2
+  # HostedZoneId:
+  #   Type: String
+  #   Default: "Z06568571RNQRX9C0B64L"
 
 Resources:
   FargateCluster: #LogicalName
@@ -184,22 +187,21 @@ Resources:
           CidrIp: 0.0.0.0/0
           Description: Internet HTTP
  
-  ALBRecordSetGroup:
-    Type: AWS::Route53::RecordSetGroup
-    Properties:
-      HostedZoneId: "Z06568571RNQRX9C0B64L"  # The ID of the hosted zone where the domain is hosted
-      RecordSets:
-        - Name: "cruddurclone.com" # The domain name for the main A record
-          Type: A
-          AliasTarget:
-            DNSName: !GetAtt ALB.DNSName  # The DNS name of your ALB
-            HostedZoneId: !GetAtt ALB.CanonicalHostedZoneID  # The canonical hosted zone ID of your ALB
-        - Name: "api.cruddurclone.com"  # The subdomain for the A record
-          Type: A
-          AliasTarget:
-            DNSName: !GetAtt ALB.DNSName  # The DNS name of your ALB
-            HostedZoneId: !GetAtt ALB.CanonicalHostedZoneID  # The canonical hosted zone ID of your ALB
-
+  # ALBRecordSetGroup:
+  #   Type: AWS::Route53::RecordSetGroup
+  #   Properties:
+  #     HostedZoneId: !Ref HostedZoneId  
+  #     RecordSets:
+  #       - Name: "cruddurclone.com" 
+  #         Type: A
+  #         AliasTarget:
+  #           DNSName: !GetAtt ALB.DNSName  
+  #           HostedZoneId: !GetAtt ALB.CanonicalHostedZoneID  
+  #       - Name: "api.cruddurclone.com"  
+  #         Type: A
+  #         AliasTarget:
+  #           DNSName: !GetAtt ALB.DNSName  
+  #           HostedZoneId: !GetAtt ALB.CanonicalHostedZoneID  
 
   # We have to create this SG before the service so we can pass it to the database SG
   ServiceSG:

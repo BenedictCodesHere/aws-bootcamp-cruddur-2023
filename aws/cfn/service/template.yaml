@@ -62,9 +62,9 @@ Parameters:
   SecretsConnectionUrl:
     Type: String
     Default: 'arn:aws:ssm:us-east-1:538323670807:parameter/cruddur/backend-flask/CONNECTION_URL'
-  SecretsRollbarAccessToken:
-    Type: String
-    Default: 'arn:aws:ssm:us-east-1:538323670807:parameter/cruddur/backend-flask/ROLLBAR_ACCESS_TOKEN'
+  # SecretsRollbarAccessToken:
+  #   Type: String
+  #   Default: 'arn:aws:ssm:us-east-1:538323670807:parameter/cruddur/backend-flask/ROLLBAR_ACCESS_TOKEN'
   SecretsOtelExporterOltpHeaders:
     Type: String
     Default: 'arn:aws:ssm:us-east-1:538323670807:parameter/cruddur/backend-flask/OTEL_EXPORTER_OTLP_HEADERS'
@@ -186,8 +186,8 @@ Resources:
               ValueFrom: !Ref SecretsSecretAccessKey
             - Name: 'CONNECTION_URL'
               ValueFrom: !Ref SecretsConnectionUrl
-            - Name: 'ROLLBAR_ACCESS_TOKEN'
-              ValueFrom: !Ref SecretsRollbarAccessToken
+            # - Name: 'ROLLBAR_ACCESS_TOKEN'
+            #   ValueFrom: !Ref SecretsRollbarAccessToken
             - Name: 'OTEL_EXPORTER_OTLP_HEADERS'
               ValueFrom: !Ref SecretsOtelExporterOltpHeaders
   ExecutionRole:
