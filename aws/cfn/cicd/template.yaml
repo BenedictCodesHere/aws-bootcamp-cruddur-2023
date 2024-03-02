@@ -12,8 +12,8 @@ Parameters:
     Default: 'omenking/aws-bootcamp-cruddur-2023'
   ClusterStack:
     Type: String
-  ServiceStack:
-    Type: String
+  # ServiceStack:
+  #   Type: String
   ArtifactBucketName:
     Type: String
   BuildSpec:
