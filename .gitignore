@@ -6,3 +6,4 @@ frontend-react-js/build/*
 session-manager-plugin.deb
 node_modules
 build.toml
+tmp/*
