@@ -8,7 +8,7 @@ attrs = {
 }
 
 ddb = boto3.resource('dynamodb', **attrs)
-table_name = 'cruddur-messages'
+table_name = 'cruddurclone-messages'
 
 table = ddb.Table(table_name)
 response = table.scan()

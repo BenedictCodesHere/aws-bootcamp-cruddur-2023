@@ -6,7 +6,7 @@ Description: |
 Parameters:
   TableName: 
     Type: String
-    Default: "cruddur-messages"
+    Default: "cruddurclone-messages"
   PythonRuntime:
     Type: String
     Default: python3.11
