@@ -1,0 +1,46 @@
+GIT
+  remote: https://github.com/benedictcodeshere/aws_s3_website_sync.git
+  revision: 705e4a0ca5b60d78d9e4012a6c4aec9205abdaaa
+  branch: main
+  specs:
+    aws_s3_website_sync (1.2.0)
+      aws-sdk-cloudfront
+      aws-sdk-s3
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    aws-eventstream (1.3.0)
+    aws-partitions (1.895.0)
+    aws-sdk-cloudfront (1.87.0)
+      aws-sdk-core (~> 3, >= 3.191.0)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-core (3.191.3)
+      aws-eventstream (~> 1, >= 1.3.0)
+      aws-partitions (~> 1, >= 1.651.0)
+      aws-sigv4 (~> 1.8)
+      jmespath (~> 1, >= 1.6.1)
+    aws-sdk-kms (1.77.0)
+      aws-sdk-core (~> 3, >= 3.191.0)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-s3 (1.143.0)
+      aws-sdk-core (~> 3, >= 3.191.0)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.8)
+    aws-sigv4 (1.8.0)
+      aws-eventstream (~> 1, >= 1.0.2)
+    dotenv (3.1.0)
+    jmespath (1.6.2)
+    ox (2.14.17)
+
+PLATFORMS
+  ruby
+  x86_64-linux
+
+DEPENDENCIES
+  aws_s3_website_sync!
+  dotenv
+  ox
+
+BUNDLED WITH
+   2.5.6
