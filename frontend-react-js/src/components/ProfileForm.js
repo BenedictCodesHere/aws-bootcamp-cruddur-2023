@@ -49,7 +49,7 @@ export default function ProfileForm(props) {
     const filename = file.name
     const size = file.size
     const type = file.type
-    const preview_image_url = URL.createObjectURL(file)
+    // const preview_image_url = URL.createObjectURL(file)
     console.log(filename,size,type)
     const fileparts = filename.split('.')
     const extension = fileparts[fileparts.length-1]
@@ -62,7 +62,7 @@ export default function ProfileForm(props) {
         headers: {
           'Content-Type': type
       }})
-      let data = await res.json();
+      // let data = await res.json();
       if (res.status === 200) {
        
       } else {
