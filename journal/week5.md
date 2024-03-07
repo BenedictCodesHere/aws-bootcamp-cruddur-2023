@@ -86,4 +86,5 @@ In the backend code, for the app routing, we are passing values e.g. for retriev
 
 
 ## DynamoDB Stream
+We create a stream on the DynamoDB table, observing the `new_image` attribute. We integrate this with a Lambda function by creating a VPC Endpoint for DynamoDB. The Lambda is a trigger on the stream, and the lambda needs permissions to update table items.
 
