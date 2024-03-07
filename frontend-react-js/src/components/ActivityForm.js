@@ -2,7 +2,7 @@ import './ActivityForm.css';
 import React from "react";
 import process from 'process';
 import {ReactComponent as BombIcon} from './svg/bomb.svg';
-import { getAccessToken } from 'lib/CheckAuth';
+import { getAccessToken } from '../lib/CheckAuth';
 
 export default function ActivityForm(props) {
   const [count, setCount] = React.useState(0);
@@ -31,7 +31,7 @@ export default function ActivityForm(props) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          handle: props.user.handle,
+          // handle: props.user.handle,
           message: message,
           ttl: ttl
         }),
