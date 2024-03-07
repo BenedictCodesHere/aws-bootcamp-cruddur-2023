@@ -3,7 +3,7 @@
 Architectural Diagram - to be updated as time progresses
 
 
-[architectural-diagram.png]
+[LucidChart Diagram](https://lucid.app/lucidchart/1c4051d0-a397-4298-aaf4-97ee9246830d/edit?invitationId=inv_ca06ea04-164a-4ca3-8c4b-64a14ebef99b)
 
 
 
