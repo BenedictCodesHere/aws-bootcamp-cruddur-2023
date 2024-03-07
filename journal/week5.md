@@ -30,7 +30,7 @@ As with most weeks, we begin by using the DEVELOPMENT environment, to test the c
 Bash Scripts are used for both development and production, with a simple command line execution of adding a variable after the invoking of the script, to set variables within the script
 that determine the environment, the table name, et cetera.
 
-An example below, from "./bin/ddb/drop":
+An example below, from `./bin/ddb/drop`:
 ```bash
 #! /usr/bin/bash
 set -e 
@@ -66,19 +66,15 @@ The scripts are for:
 - seeding the database with seed data (seed)
 - loading the database schema into the database (schema-load)
 
-in "./bin/ddb/patterns":
+`./bin/ddb/patterns`:
 - retrieving a conversation that in the database from its message_group_uuid (get-conversation)
 - listing conversations in the database based on filtering parameters e.g. the sk aka sort key begins with "2023" (list-conversation)
 
 ## Cognito Scripts
-I also created a script to list the users in the Cognito User Pool;
-File: 
-"./bin/cognito/list-users". 
+I also created a script to list the users in the Cognito User Pool: `./bin/cognito/list-users`. 
 This is just for development.
 
-To update the RDS database with the correct Cognito User IDs, I created another script;
-File: 
-"./bin/db/update-cognito-user-ids".
+To update the RDS database with the correct Cognito User IDs, I created another script, `./bin/db/update-cognito-user-ids`.
 
 
 ## Access Pattern Implementation
