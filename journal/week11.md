@@ -1,5 +1,10 @@
 # Week 11 - Fixing Application Errors In Staging
 
+### Links To External Resources
+https://yocollab.medium.com/lamba-private-vpc-endpoint-and-secrets-manager-2d35e4899a0c
+
+https://repost.aws/knowledge-center/lambda-secret-vpc
+
 ## Static Build for Frontend
 
 Our application architecture now looks like:
@@ -369,7 +374,7 @@ secrets_extension_endpoint = "http://localhost:" + \
 ## Troubleshooting Lambda Timeout
 After many headaches, I got to the bottom of why the Lambda function execution would time out when attempting to get the secret.
 
-Here are the steps from this useful article: `https://yocollab.medium.com/lamba-private-vpc-endpoint-and-secrets-manager-2d35e4899a0c`
+Here are the steps from this useful article: https://yocollab.medium.com/lamba-private-vpc-endpoint-and-secrets-manager-2d35e4899a0c
 
 ```
 
@@ -391,3 +396,4 @@ I tested the signup and confirmation process on the browser and it worked as exp
 This meant I was able to implement a more secure solution than previously, where the `CONNECTION_URL` was set as an environment variable directly in the Lambda.
 
 I also updated the code to obscure some more of the data, the `SECRET_NAME` being pulled in via an environment variable.
+
