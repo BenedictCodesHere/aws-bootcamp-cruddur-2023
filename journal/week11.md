@@ -397,3 +397,8 @@ This meant I was able to implement a more secure solution than previously, where
 
 I also updated the code to obscure some more of the data, the `SECRET_NAME` being pulled in via an environment variable.
 
+
+## Issues with Creating an Activity
+![CORS_api_activities](./assets/week11/CORS_api_activities.png) 
+
+![CORS_api_activities_home](./assets/week11/CORS_api_activities_home.png)
