@@ -1,0 +1,12 @@
+[deploy]
+bucket = ''
+region = ''
+stack_name = ''
+
+[parameters]
+ServiceStack = ''
+ClusterStack = ''
+GitHubBranch = ''
+GithubRepo = ''
+ArtifactBucketName = ""
+BuildSpec = '

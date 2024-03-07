@@ -1,0 +1,317 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: |
+  The networking and cluster configuration to support fargate containers
+  - ECS Fargate Cluster
+  - ALB
+    - IPv4 only
+    - internet facing
+    - Certificate added from Amazon Certificate Manager (ACM)
+  - ALB Security Group
+  - HTTPS Listener
+    - send naked domain to frontend Target Group
+    - send api. subdomain to backend Target Group
+  - HTTP Listener
+    - redirects to HTTPS Listener
+  - Backend Target Group
+  - Frontend Target Group
+  - Certificates
+Parameters:
+  NetworkingStack: 
+    Type: String
+    Description: The base layer of networking components e.g. VPC, subnets
+    Default: CrdNet
+  CertificateArn:
+    Type: String
+  FrontendPort:
+    Type: Number
+    Default: 3000
+  BackendPort:
+    Type: Number
+    Default: 4567
+  FrontendHealthCheckEnabled: 
+    Type: String
+    Default: true
+  FrontendHealthCheckIntervalSeconds:
+    Type: Number
+    Default: 15
+  FrontendHealthCheckPath:
+    Type: String
+    Default: "/"
+  FrontendHealthCheckPort: 
+    Type: Number
+    Default: 80
+  FrontendHealthCheckProtocol:
+    Type: String
+    Default: HTTP
+  FrontendHealthCheckTimeoutSeconds:
+    Type: Number
+    Default: 5
+  FrontendHealthyThresholdCount:
+    Type: Number
+    Default: 2
+  FrontendUnhealthyThresholdCount:
+    Type: Number
+    Default: 2
+  BackendHealthCheckEnabled: 
+    Type: String
+    Default: true
+  BackendHealthCheckIntervalSeconds:
+    Type: Number
+    Default: 15
+  BackendHealthCheckPath:
+    Type: String
+    Default: "/api/health-check"
+  BackendHealthCheckPort: 
+    Type: Number
+    Default: 4567
+  BackendHealthCheckProtocol:
+    Type: String
+    Default: HTTP
+  BackendHealthCheckTimeoutSeconds:
+    Type: Number
+    Default: 5
+  BackendHealthyThresholdCount:
+    Type: Number
+    Default: 2
+  BackendUnhealthyThresholdCount:
+    Type: Number
+    Default: 2
+  # HostedZoneId:
+  #   Type: String
+  #   Default: "Z06568571RNQRX9C0B64L"
+
+Resources:
+  FargateCluster: #LogicalName
+    Type: 'AWS::ECS::Cluster'
+    Properties:
+      ClusterName: !Sub "${AWS::StackName}FargateCluster"
+      CapacityProviders:
+        - FARGATE
+      ClusterSettings:
+        - Name: containerInsights
+          Value: enabled
+      Configuration: # Optional
+        ExecuteCommandConfiguration:
+          Logging: DEFAULT
+          # KmsKeyId: !Ref KmsKey
+          # LogConfiguration:
+  ALB:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      IpAddressType: ipv4
+      Scheme: internet-facing
+      Name: !Sub "${AWS::StackName}ALB"
+      Type: application
+      Subnets:
+        Fn::Split:
+          - ","
+          - Fn::ImportValue:
+              !Sub "${NetworkingStack}PublicSubnetIds"
+      SecurityGroups:
+        - !GetAtt ALBSG.GroupId
+      LoadBalancerAttributes:
+        - Key: idle_timeout.timeout_seconds
+          Value: '60'
+        - Key: routing.http2.enabled
+          Value: 'true'
+        - Key: deletion_protection.enabled
+          Value: 'false'
+        - Key: access_logs.s3.enabled
+          Value: 'false'
+        # In case we want to turn on logs
+        # - Key: access_logs.s3.bucket
+        #   Value: !Ref S3Bucket
+        # - Key: access_logs.s3.prefix
+        #   Value: !Ref S3Prefix
+        # - Key: access_logs.s3.emit_interval
+        #   Value: '60'
+        - Key: routing.http.drop_invalid_header_fields.enabled
+          Value: 'true'
+        - Key: load_balancing.cross_zone.enabled
+          Value: 'true' 
+  HTTPSListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      DefaultActions:
+        - TargetGroupArn: !Ref FrontendTG
+          Type: forward
+      LoadBalancerArn: !Ref ALB
+      Certificates: 
+        - CertificateArn: !Ref CertificateArn
+      Port: 443
+      Protocol: "HTTPS"
+  HTTPSListenerRule:
+    Type: AWS::ElasticLoadBalancingV2::ListenerRule
+    Properties:
+      Actions:
+        - TargetGroupArn: !Ref BackendTG
+          Type: forward
+      Conditions:
+        - Field: host-header
+          Values:
+            - "api.cruddurclone.com"
+      ListenerArn: !Ref HTTPSListener
+      Priority: 1
+  HTTPlistener:
+   Type: "AWS::ElasticLoadBalancingV2::Listener"
+   Properties:
+     DefaultActions:
+       - Type: "redirect"
+         RedirectConfig:
+           Protocol: "HTTPS"
+           Port: "443"
+           Host: "#{host}"
+           Path: "/#{path}"
+           Query: "#{query}"
+           StatusCode: "HTTP_301"
+     LoadBalancerArn: !Ref ALB
+     Port: 80
+     Protocol: "HTTP"
+  ALBSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: !Sub "${AWS::StackName}ALBSG"
+      GroupDescription: Public Facing SG for Cruddurclone ALB
+      VpcId: 
+        Fn::ImportValue:
+          !Sub "${NetworkingStack}VpcId"
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
+          Description: Internet HTTPS
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+          Description: Internet HTTP
+ 
+  # ALBRecordSetGroup:
+  #   Type: AWS::Route53::RecordSetGroup
+  #   Properties:
+  #     HostedZoneId: !Ref HostedZoneId  
+  #     RecordSets:
+  #       - Name: "cruddurclone.com" 
+  #         Type: A
+  #         AliasTarget:
+  #           DNSName: !GetAtt ALB.DNSName  
+  #           HostedZoneId: !GetAtt ALB.CanonicalHostedZoneID  
+  #       - Name: "api.cruddurclone.com"  
+  #         Type: A
+  #         AliasTarget:
+  #           DNSName: !GetAtt ALB.DNSName  
+  #           HostedZoneId: !GetAtt ALB.CanonicalHostedZoneID  
+
+  # We have to create this SG before the service so we can pass it to the database SG
+  ServiceSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: !Sub "${AWS::StackName}ServSG"
+      GroupDescription: Security for the Cruddurclone Services on Fargate
+      VpcId: 
+        Fn::ImportValue:
+          !Sub "${NetworkingStack}VpcId"
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: !Ref BackendPort
+          ToPort: !Ref BackendPort
+          SourceSecurityGroupId: !GetAtt ALBSG.GroupId
+          Description: ALB HTTP
+  BackendTG:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: !Sub "${AWS::StackName}BackendTG"
+      VpcId: 
+        Fn::ImportValue:
+          !Sub "${NetworkingStack}VpcId"
+      Port: !Ref BackendPort
+      Protocol: HTTP
+      ProtocolVersion: HTTP2
+      Matcher:
+        HttpCode: 200,302
+      TargetGroupAttributes:
+        - Key: deregistration_delay.timeout_seconds
+          Value: 0
+      # Targets:
+      #   - Id: !ImportValue "SubnetPrivA"
+      #     Port: !Ref BackendPort
+      #   - Id: !ImportValue "SubnetPrivB"
+      #     Port: !Ref BackendPort
+      #   - Id: !ImportValue "SubnetPrivC"
+      #     Port: !Ref BackendPort
+      HealthCheckEnabled: !Ref BackendHealthCheckEnabled
+      HealthCheckIntervalSeconds: !Ref BackendHealthCheckIntervalSeconds
+      HealthCheckPath: !Ref BackendHealthCheckPath
+      HealthCheckPort: !Ref BackendHealthCheckPort
+      HealthCheckProtocol: !Ref BackendHealthCheckProtocol
+      HealthCheckTimeoutSeconds: !Ref BackendHealthCheckTimeoutSeconds
+      HealthyThresholdCount: !Ref BackendHealthyThresholdCount
+      TargetType: ip
+      UnhealthyThresholdCount: !Ref BackendUnhealthyThresholdCount
+      # SecurityGroupEgress:
+      #   - IpProtocol: tcp
+      #     FromPort: 0
+      Tags:
+      - Key: target-group-name
+        Value: backend
+  FrontendTG:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: !Sub "${AWS::StackName}FrontendTG"
+      VpcId: 
+        Fn::ImportValue:
+          !Sub "${NetworkingStack}VpcId"
+      Port: !Ref FrontendPort
+      Protocol: HTTP
+      ProtocolVersion: HTTP2
+      Matcher:
+        HttpCode: 200,302
+      TargetGroupAttributes:
+        - Key: deregistration_delay.timeout_seconds
+          Value: 0
+      # Targets:
+      #   - Id: !ImportValue "SubnetPrivA"
+      #     Port: !Ref FrontendPort
+      #   - Id: !ImportValue "SubnetPrivB"
+      #     Port: !Ref FrontendPort
+      #   - Id: !ImportValue "SubnetPrivC"
+      #     Port: !Ref FrontendPort
+      HealthCheckEnabled: !Ref FrontendHealthCheckEnabled
+      HealthCheckIntervalSeconds: !Ref FrontendHealthCheckIntervalSeconds
+      HealthCheckPath: !Ref FrontendHealthCheckPath
+      HealthCheckPort: !Ref FrontendHealthCheckPort
+      HealthCheckProtocol: !Ref FrontendHealthCheckProtocol
+      HealthCheckTimeoutSeconds: !Ref FrontendHealthCheckTimeoutSeconds
+      HealthyThresholdCount: !Ref FrontendHealthyThresholdCount
+      TargetType: ip
+      UnhealthyThresholdCount: !Ref FrontendUnhealthyThresholdCount
+      # SecurityGroupEgress:
+      #   - IpProtocol: tcp
+      #     FromPort: 0
+      #     ToPort: 65535
+      #     CidrIp: 0.0.0.0/0
+      Tags:
+      - Key: target-group-name
+        Value: frontend
+Outputs:
+  ClusterName:
+    Value: !Ref FargateCluster
+    Export:
+      Name: !Sub "${AWS::StackName}ClusterName"
+  ServiceSecurityGroupId:
+    Value: !GetAtt ServiceSG.GroupId
+    Export:
+      Name: !Sub "${AWS::StackName}ServiceSecurityGroupId"
+  ALBSecurityGroupId:
+    Value: !GetAtt ALBSG.GroupId
+    Export:
+      Name: !Sub "${AWS::StackName}ALBSecurityGroupId"
+  FrontendTGArn:
+    Value: !Ref FrontendTG
+    Export:
+      Name: !Sub "${AWS::StackName}FrontendTGArn"
+  BackendTGArn:
+    Value: !Ref BackendTG
+    Export:
+      Name: !Sub "${AWS::StackName}BackendTGArn"
