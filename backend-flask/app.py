@@ -154,7 +154,7 @@ def health_check():
 @app.route("/api/message_groups", methods=['GET'])
 @jwt_required()
 def data_message_groups():
-      model = MessageGroups.run(cognito_user_id=cognito_user_id)
+      model = MessageGroups.run(cognito_user_id=g.cognito_user_id)
       if model['errors'] is not None:
         return model['errors'], 422
       else:
@@ -167,7 +167,7 @@ def data_update_profile():
   bio          = request.json.get('bio',None)
   display_name = request.json.get('display_name',None)
   model = UpdateProfile.run(
-    cognito_user_id=cognito_user_id,
+    cognito_user_id=g.cognito_user_id,
     bio=bio,
     display_name=display_name
   )
@@ -181,7 +181,7 @@ def data_update_profile():
 def data_messages(message_group_uuid):
       model = Messages.run(
         message_group_uuid=message_group_uuid,
-        cognito_user_id=cognito_user_id
+        cognito_user_id=g.cognito_user_id
         )
       if model['errors'] is not None:
         return model['errors'], 422
@@ -200,7 +200,7 @@ def data_create_message():
     model = CreateMessage.run(
       mode="create",
       message=message,
-      cognito_user_id=cognito_user_id,
+      cognito_user_id=g.cognito_user_id,
       user_receiver_handle=user_receiver_handle
     )
   else:
@@ -209,7 +209,7 @@ def data_create_message():
       mode="update",
       message=message,
       message_group_uuid=message_group_uuid,
-      cognito_user_id=cognito_user_id
+      cognito_user_id=g.cognito_user_id
     )
   if model['errors'] is not None:
     return model['errors'], 422
@@ -262,7 +262,7 @@ def data_search():
 def data_activities():
     message = request.json['message']
     ttl = request.json['ttl']
-    model = CreateActivity.run(message, cognito_user_id, ttl)
+    model = CreateActivity.run(message, g.cognito_user_id, ttl)
     if model['errors'] is not None:
       return model['errors'], 422
     else:
