@@ -93,8 +93,8 @@ export default function ProfileForm(props) {
       });
       let data = await res.json();
       if (res.status === 200) {
-        setBio('')
-        setDisplayName('')
+        // setBio('')
+        // setDisplayName('')
         props.setPopped(false)
       } else {
         console.log(res)

@@ -19,7 +19,7 @@ export default function ActivityForm(props) {
     event.preventDefault();
     try {
       const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/activities`
-      console.log('HANDLE', props.user.handle)
+      // console.log('HANDLE', props.user.handle)
       console.log('onsubmit payload', message)
       await getAccessToken()
       const access_token = localStorage.getItem("access_token")
