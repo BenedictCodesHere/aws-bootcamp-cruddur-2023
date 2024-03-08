@@ -59,7 +59,8 @@ from flask import got_request_exception
 # LOGGER.addHandler(cw_handler)
 # LOGGER.info("test log")
 
-
+# Enable flask-cors logging
+logging.getLogger('flask_cors').level = logging.DEBUG
 
 # Initialize tracing and an exporter that can send data to Honeycomb
 provider = TracerProvider()
@@ -82,13 +83,6 @@ tracer = trace.get_tracer(__name__)
 
 app = Flask(__name__)
 app.logger.setLevel(logging.DEBUG)
-
-cognito_jwt_token = CognitoJwtToken(
-  user_pool_id= os.getenv("AWS_COGNITO_USER_POOL_ID"), 
-  user_pool_client_id= os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"),
-  region= os.getenv("AWS_DEFAULT_REGION")
-)
-
 
 # FLASK_AWSCOGNITO
 # app.config['AWS_COGNITO_USER_POOL_ID'] = os.getenv("AWS_COGNITO_USER_POOL_ID")
