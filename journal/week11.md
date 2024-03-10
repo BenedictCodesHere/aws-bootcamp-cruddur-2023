@@ -46,7 +46,7 @@ Dotenv.load(env_path)
 puts "== configuration"
 puts "aws_default_region:   #{ENV["AWS_DEFAULT_REGION"]}"
 puts "s3_bucket:            #{ENV["SYNC_S3_BUCKET"]}"
-puts "distribution_id:      #{ENV["SYNC_CLOUDFRONT_DISTRUBTION_ID"]}"
+puts "distribution_id:      #{ENV["SYNC_CLOUDFRONT_DISTRIBUTION_ID"]}"
 puts "build_dir:            #{ENV["SYNC_BUILD_DIR"]}"
 
 changeset_path = ENV["SYNC_OUTPUT_CHANGESET_PATH"]
@@ -61,7 +61,7 @@ AwsS3WebsiteSync::Runner.run(
   aws_secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"],
   aws_default_region:    ENV["AWS_DEFAULT_REGION"],
   s3_bucket:             ENV["SYNC_S3_BUCKET"],
-  distribution_id:       ENV["SYNC_CLOUDFRONT_DISTRUBTION_ID"],
+  distribution_id:       ENV["SYNC_CLOUDFRONT_DISTRIBUTION_ID"],
   build_dir:             ENV["SYNC_BUILD_DIR"],
   output_changset_path:  changeset_path,
   auto_approve:          ENV["SYNC_AUTO_APPROVE"],
@@ -125,7 +125,7 @@ Dotenv.load(env_path)
 puts "== configuration"
 puts "aws_default_region:   #{ENV["AWS_DEFAULT_REGION"]}"
 puts "s3_bucket:            #{ENV["SYNC_S3_BUCKET"]}"
-puts "distribution_id:      #{ENV["SYNC_CLOUDFRONT_DISTRUBTION_ID"]}"
+puts "distribution_id:      #{ENV["SYNC_CLOUDFRONT_DISTRIBUTION_ID"]}"
 puts "build_dir:            #{ENV["SYNC_BUILD_DIR"]}"
 
 changeset_path = ENV["SYNC_OUTPUT_CHANGESET_PATH"]
@@ -140,7 +140,7 @@ AwsS3WebsiteSync::Runner.run(
   aws_secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"],
   aws_default_region:    ENV["AWS_DEFAULT_REGION"],
   s3_bucket:             ENV["SYNC_S3_BUCKET"],
-  distribution_id:       ENV["SYNC_CLOUDFRONT_DISTRUBTION_ID"],
+  distribution_id:       ENV["SYNC_CLOUDFRONT_DISTRIBUTION_ID"],
   build_dir:             ENV["SYNC_BUILD_DIR"],
   output_changset_path:  changeset_path,
   auto_approve:          ENV["SYNC_AUTO_APPROVE"],
