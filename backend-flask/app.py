@@ -22,8 +22,7 @@ app = Flask(__name__)
 init_xray(app)
 init_honeycomb(app)
 init_cors(app)
-# with app.app_context():
-#   g.rollbar = init_rollbar(app)
+# init_rollbar(app)
 
 # load routes -----------
 routes.general.load(app)
