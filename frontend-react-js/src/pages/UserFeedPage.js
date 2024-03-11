@@ -8,7 +8,8 @@ import ActivityFeed from 'components/ActivityFeed';
 import ActivityForm from 'components/ActivityForm';
 import ProfileHeading from 'components/ProfileHeading';
 import ProfileForm from 'components/ProfileForm'
-import {checkAuth, getAccessToken} from 'lib/CheckAuth';
+import {get} from 'lib/Requests';
+import {checkAuth} from 'lib/CheckAuth';
 
 
 export default function UserFeedPage() {
@@ -19,30 +20,19 @@ export default function UserFeedPage() {
   const [user, setUser] = React.useState(null);
   const dataFetchedRef = React.useRef(false);
 
-  const { handle } = useParams();
+  const params = useParams();
 
   const loadData = async () => {
-    try {
-      const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/@${handle}`
-      await getAccessToken()
-      const access_token = localStorage.getItem("access_token")
-      const res = await fetch(backend_url, {
-        headers: {
-          Authorization: `Bearer ${access_token}`
-        }, 
-        method: "GET"
-      });
-      let resJson = await res.json();
-      if (res.status === 200) {
-        setProfile(resJson.profile)
-        setActivities(resJson.activities)
-      } else {
-        console.log(res)
+    const url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/@${params.handle}`
+    get(url,{
+      auth: false,
+      success: function(data){
+        console.log('setprofile',data.profile)
+        setProfile(data.profile)
+        setActivities(data.activities)
       }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    })
+  }
 
   
 

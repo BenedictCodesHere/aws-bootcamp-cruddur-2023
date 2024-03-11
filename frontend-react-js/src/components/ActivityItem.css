@@ -5,6 +5,27 @@
   overflow: hidden;
   padding: 16px;
 }
+
+.activity_item.clickable:hover {
+  cursor: pointer;
+}
+
+a.activity_item:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+.replies {
+  padding-left: 24px;
+  background: rgba(255,255,255,0.15);
+}
+.replies .activity_item{
+  background: var(--fg);
+}
+
+.activity_main {
+  padding: 16px;
+}
+
 .activity_item:last-child {
   border-bottom: none;
 }
@@ -43,4 +64,11 @@
 
 .activity_item .activity_actions .action:hover .icon {
   fill: rgb(149,0,255);
+}
+
+.activity_item.expanded .activity_content {
+  display: flex;
+}
+.activity_item.expanded .activity_content .activity_identity{
+  flex-grow: 1;
 }

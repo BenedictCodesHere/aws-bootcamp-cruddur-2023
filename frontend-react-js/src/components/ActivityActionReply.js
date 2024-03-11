@@ -2,8 +2,11 @@ import {ReactComponent as ReplyIcon} from './svg/reply.svg';
 
 export default function ActivityActionReply(props) { 
   const onclick = (event) => {
-    props.setReplyActivity(props.activity)
-    props.setPopped(true)
+    event.preventDefault();
+    // console.log('activity-action-reply',props.activity)
+    props.setReplyActivity(props.activity);
+    props.setPopped(true);
+    return false;
   }
 
   let counter;
