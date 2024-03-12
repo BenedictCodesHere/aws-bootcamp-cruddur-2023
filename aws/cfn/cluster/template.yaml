@@ -8,12 +8,10 @@ Description: |
     - Certificate added from Amazon Certificate Manager (ACM)
   - ALB Security Group
   - HTTPS Listener
-    - send naked domain to frontend Target Group
-    - send api. subdomain to backend Target Group
+    - send to Backend Target Group
   - HTTP Listener
     - redirects to HTTPS Listener
   - Backend Target Group
-  - Frontend Target Group
   - Certificates
 Parameters:
   NetworkingStack: 
@@ -22,36 +20,9 @@ Parameters:
     Default: CrdNet
   CertificateArn:
     Type: String
-  FrontendPort:
-    Type: Number
-    Default: 3000
   BackendPort:
     Type: Number
     Default: 4567
-  FrontendHealthCheckEnabled: 
-    Type: String
-    Default: true
-  FrontendHealthCheckIntervalSeconds:
-    Type: Number
-    Default: 15
-  FrontendHealthCheckPath:
-    Type: String
-    Default: "/"
-  FrontendHealthCheckPort: 
-    Type: Number
-    Default: 80
-  FrontendHealthCheckProtocol:
-    Type: String
-    Default: HTTP
-  FrontendHealthCheckTimeoutSeconds:
-    Type: Number
-    Default: 5
-  FrontendHealthyThresholdCount:
-    Type: Number
-    Default: 2
-  FrontendUnhealthyThresholdCount:
-    Type: Number
-    Default: 2
   BackendHealthCheckEnabled: 
     Type: String
     Default: true
@@ -133,25 +104,13 @@ Resources:
     Type: AWS::ElasticLoadBalancingV2::Listener
     Properties:
       DefaultActions:
-        - TargetGroupArn: !Ref FrontendTG
+        - TargetGroupArn: !Ref BackendTG
           Type: forward
       LoadBalancerArn: !Ref ALB
       Certificates: 
         - CertificateArn: !Ref CertificateArn
       Port: 443
       Protocol: "HTTPS"
-  HTTPSListenerRule:
-    Type: AWS::ElasticLoadBalancingV2::ListenerRule
-    Properties:
-      Actions:
-        - TargetGroupArn: !Ref BackendTG
-          Type: forward
-      Conditions:
-        - Field: host-header
-          Values:
-            - "api.cruddurclone.com"
-      ListenerArn: !Ref HTTPSListener
-      Priority: 1
   HTTPlistener:
    Type: "AWS::ElasticLoadBalancingV2::Listener"
    Properties:
@@ -255,45 +214,6 @@ Resources:
       Tags:
       - Key: target-group-name
         Value: backend
-  FrontendTG:
-    Type: AWS::ElasticLoadBalancingV2::TargetGroup
-    Properties:
-      Name: !Sub "${AWS::StackName}FrontendTG"
-      VpcId: 
-        Fn::ImportValue:
-          !Sub "${NetworkingStack}VpcId"
-      Port: !Ref FrontendPort
-      Protocol: HTTP
-      ProtocolVersion: HTTP2
-      Matcher:
-        HttpCode: 200,302
-      TargetGroupAttributes:
-        - Key: deregistration_delay.timeout_seconds
-          Value: 0
-      # Targets:
-      #   - Id: !ImportValue "SubnetPrivA"
-      #     Port: !Ref FrontendPort
-      #   - Id: !ImportValue "SubnetPrivB"
-      #     Port: !Ref FrontendPort
-      #   - Id: !ImportValue "SubnetPrivC"
-      #     Port: !Ref FrontendPort
-      HealthCheckEnabled: !Ref FrontendHealthCheckEnabled
-      HealthCheckIntervalSeconds: !Ref FrontendHealthCheckIntervalSeconds
-      HealthCheckPath: !Ref FrontendHealthCheckPath
-      HealthCheckPort: !Ref FrontendHealthCheckPort
-      HealthCheckProtocol: !Ref FrontendHealthCheckProtocol
-      HealthCheckTimeoutSeconds: !Ref FrontendHealthCheckTimeoutSeconds
-      HealthyThresholdCount: !Ref FrontendHealthyThresholdCount
-      TargetType: ip
-      UnhealthyThresholdCount: !Ref FrontendUnhealthyThresholdCount
-      # SecurityGroupEgress:
-      #   - IpProtocol: tcp
-      #     FromPort: 0
-      #     ToPort: 65535
-      #     CidrIp: 0.0.0.0/0
-      Tags:
-      - Key: target-group-name
-        Value: frontend
 Outputs:
   ClusterName:
     Value: !Ref FargateCluster
@@ -307,10 +227,6 @@ Outputs:
     Value: !GetAtt ALBSG.GroupId
     Export:
       Name: !Sub "${AWS::StackName}ALBSecurityGroupId"
-  FrontendTGArn:
-    Value: !Ref FrontendTG
-    Export:
-      Name: !Sub "${AWS::StackName}FrontendTGArn"
   BackendTGArn:
     Value: !Ref BackendTG
     Export:
