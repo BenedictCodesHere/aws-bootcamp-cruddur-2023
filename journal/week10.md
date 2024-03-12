@@ -21,21 +21,12 @@ I delete the infrastructure that we are going to replace with the CloudFormation
 We delete the services for `backend-flask` and `frontend-react-js`.
 
 ### ALB
-We delete the listeners for the `cruddur-alb` first, the `https:443` and `http:80` listeners.
+We delete:
+1. Listeners for the `cruddur-alb` first, the `https:443` and `http:80` listeners.
+2. Then the target groups, `frontend-react-js` and `cruddur-backend-flask-tg`.
+3. Then the ALB `cruddur-alb`
 
-![listeners-http](./deleted_infrastructure/cruddur-alb-http-80-listener.png)
-![listeners-https](./deleted_infrastructure/cruddur-alb-https-443-listener.png)
-
-...Then the target groups, `frontend-react-js` and `cruddur-backend-flask-tg`
-
-![target-groups-backend](./deleted_infrastructure/cruddur-alb-tg-cruddur-backend-flask-tg.png)
-![target-groups-frontend](./deleted_infrastructure/cruddur-alb-tg-cruddur-frontend-react-js.png)
-
-...Then the ALB `cruddur-alb`
-
-![ALB](./deleted_infrastructure/cruddur-alb.png)
-
-I screenshotted these to make sure that I had some to hand information on them.
+I screenshotted these to make sure that I had some replicable configuration information for them.
 
 ### ECS - Cluster
 We then delete the `cruddur` cluster in ECS.
@@ -43,14 +34,26 @@ We then delete the `cruddur` cluster in ECS.
 ### CloudMap - Namespaces
 We finally delete the `cruddur` namespace in CloudMap.
 
-
-
 ## CloudFormation Stacks
+1. `Networking`
+For configuring the VPC, public DNS, Internet Gateway (IGW), a custom Route Table with routing to the IGW and for local, and public and private subnets, 3 per AZ.
 
-### Networking
-### Cluster
-### Db
-### Service
+2. `Cluster`
+For deploying the ECS Fargate Cluster, creating an Application Load Balancer (ALB) with an SSL Certificate from Amazon Certificate Manager (ACM), the ALB's Security Group (SG), the HTTP and HTTPS listeners for the ALB, and the Backend target group which routes through to the ECS service.
+3. `Db`
+For configuring the RDS Postgres instance, the database SG and the DB subnet group.
+4. `Service`
+For configuring the fargate service to be launched in the Fargate cluster on ECS, the task definition of the service, the service task role and the service execution role with the relevant IAM policies.
+
+
+We later added:
+
+5. `frontend` 
+For hosting the frontend service via CloudFront and an S3 bucket as a Single Page Application architecture instead of running the frontend on an ECS containerized service.
+
+6. `machine-user` 
+Configuring a user with relevant permissions for certain actions performed in the backend.
+
 
 
 ## Configuring DB
