@@ -21,8 +21,12 @@ section footer a:hover {
 }
 
 
-@media only screen and (max-width: 600px) {
-  .trendings {
+@media only screen and (max-width: 768px) {
+  /* Hide the Sidebar entirely on smaller screens */
+  section {
+    display: none;
+  }
+  /* .trendings {
     width: fit-content;
     
   }
@@ -52,5 +56,5 @@ section footer a:hover {
   footer {
     flex-direction: column;
     align-items: center;
-  }
+  } */
 }
