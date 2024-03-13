@@ -21,7 +21,7 @@ export default function UserFeedPage() {
   const dataFetchedRef = React.useRef(false);
 
   const params = useParams();
-
+  console.log("user", user);
   const loadData = async () => {
     const url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/@${params.handle}`
     get(url,{
@@ -48,7 +48,7 @@ export default function UserFeedPage() {
   return (
     <article>
       <DesktopNavigation user={user} active={'profile'} setPopped={setPopped} />
-      <div className='content'>
+      <div className='content profile-content'>
         <ActivityForm popped={popped} setActivities={setActivities} />
         <ProfileForm 
           profile={profile}

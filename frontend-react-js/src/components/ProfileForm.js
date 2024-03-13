@@ -12,7 +12,7 @@ export default function ProfileForm(props) {
 
   React.useEffect(()=>{
     setBio(props.profile.bio || '');
-    setDisplayName(props.profile.display_name);
+    setDisplayName(props.profile.display_name || '');
   }, [props.profile])
 
   const s3uploadkey = async (extension)=> {

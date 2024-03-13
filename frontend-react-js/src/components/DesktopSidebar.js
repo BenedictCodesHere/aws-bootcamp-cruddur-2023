@@ -6,14 +6,14 @@ import JoinSection from '../components/JoinSection'
 
 export default function DesktopSidebar(props) {
   const trendings = [
-    {"hashtag": "100DaysOfCloud", "count": 2053 },
-    {"hashtag": "CloudProject", "count": 8253 },
-    {"hashtag": "AWS", "count": 9053 },
-    {"hashtag": "FreeWillyReboot", "count": 7753 }
+    {"hashtag": "CloudArchitect", "count": 2012 },
+    {"hashtag": "FullStackDev", "count": 1119 },
+    {"hashtag": "AWS", "count": 8903 },
+    {"hashtag": "SolutionsArchitect", "count": 4053 }
   ]
 
   const users = [
-    {"display_name": "Andrew Brown", "handle": "andrewbrown"}
+    {"display_name": "Benedict McElroy", "handle": "BenedictCodesHere"}
   ]
 
   let trending;
