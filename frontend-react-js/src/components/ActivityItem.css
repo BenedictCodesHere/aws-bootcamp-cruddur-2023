@@ -8,11 +8,14 @@
 
 .activity_item.clickable:hover {
   cursor: pointer;
+  background: rgba(255,255,255,0.15);
+  transition-property: "background";
+  transition-duration: 0.25s;
 }
 
-a.activity_item:hover {
-  background: rgba(255,255,255,0.15);
-}
+/* a.activity_item:hover {
+  
+} */
 
 .replies {
   padding-left: 24px;
@@ -32,19 +35,25 @@ a.activity_item:hover {
 
 .activity_item .activity_actions {
   display: flex;
+  justify-content: space-evenly;
   align-items: flex-end;
   padding-top: 16px;
-  padding-left: 60px;
+  padding-left: 20px;
 }
 
 .activity_item .activity_actions .action{
-  flex-grow: 1;
+  box-sizing: border-box;
+  width: 2em;
+  /* flex-grow: 0.25; */
   cursor: pointer;
-  padding: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 0px;
+  padding-right: 0px;
   border-radius: 999px;
   display: flex;
   flex-direction: row;
-  gap: 12px
+  /* gap: 20px; */
 }
 
 .activity_item .activity_actions .action .counter{
@@ -53,22 +62,25 @@ a.activity_item:hover {
 }
 
 .activity_item .activity_actions .icon{
-  height: 18px;
-  width: 18px;
+  height: 100%;
+  /* width: 18px; */
   fill: #fff;
+  width: 100%;
+
 }
 
-.activity_item .activity_actions .action:hover {
+/* .activity_item .activity_actions .action:hover {
   background: rgba(149,0,255,0.2);
-}
+} */
 
 .activity_item .activity_actions .action:hover .icon {
   fill: rgb(149,0,255);
+  width: inherit;
 }
-
+/* 
 .activity_item.expanded .activity_content {
   display: flex;
 }
 .activity_item.expanded .activity_content .activity_identity{
   flex-grow: 1;
-}
+} */
