@@ -8,3 +8,20 @@ main, article {
   height: 100%;
   /* background: var(--fg); */
 }
+
+@media only screen and (max-width: 600px){
+  .content {
+    margin-left: 10vw;
+    width: 40%;
+    height: 40%;
+
+    /* background: var(--fg); */
+  }
+  section {
+    max-width: 25%;
+    
+    padding-left: 20px;
+  }
+  
+}
+

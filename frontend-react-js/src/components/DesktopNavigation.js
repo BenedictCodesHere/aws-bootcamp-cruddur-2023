@@ -33,7 +33,10 @@ export default function DesktopNavigation(props) {
 
   return (
     <nav>
+      <div className='logo-wrapper'>
       <Logo className='logo' />
+      </div>
+      
       <DesktopNavigationLink url="/" 
         name="Home"
         handle="home"

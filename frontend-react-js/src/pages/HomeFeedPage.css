@@ -3,3 +3,10 @@ article {
   flex-direction: row;
   justify-content: center;
 }
+
+/* @media only screen and (max-width: 600px){
+  nav {
+    min-width: 300px;
+
+  }
+} */

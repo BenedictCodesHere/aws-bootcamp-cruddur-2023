@@ -55,3 +55,65 @@ nav button.post {
   text-align: center;
   margin-top: 24px;
 }
+
+
+@media only screen and (max-width: 1000px) {
+  .sidebar-word {
+    display:none;
+  }
+  .primary {
+    display: flex;
+    justify-content: center;
+  }
+
+  .primary .icon {
+    min-width: 36px;
+    min-height: 36px;
+    margin-bottom: 8px;
+  }
+
+  /* .primary .icon:hover {
+    color:rgba(149,0,255,1)
+  } */
+
+  nav .logo-wrapper {
+   display: flex;
+   justify-content: center;
+   padding: 8px;
+   /* border-bottom: 5px solid rgba(149,0,255,1); */
+   
+  }
+
+  
+
+
+}
+
+@media only screen and (max-width: 1000px){
+  nav {
+    padding-top: 0px;
+    position: fixed;
+    left: 25px;
+    max-width: 16vw;
+    justify-content: center;
+  }
+
+  /* .primary {
+    background: white;
+    
+    justify-content: flex-end;
+  } */
+  nav button.post {
+    display: block;
+    background: rgba(149,0,255,1);
+    color: #fff;
+    border: none;
+    text-decoration: none;
+    border-radius: 999px;
+    width: 30px;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 0px;
+  }
+}

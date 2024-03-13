@@ -19,3 +19,38 @@ section footer a {
 section footer a:hover {
   color: rgba(255,255,255,1);
 }
+
+
+@media only screen and (max-width: 600px) {
+  .trendings {
+    width: fit-content;
+    
+  }
+  .trendings span {
+    font-size: 0.7em;
+  }
+
+  .suggested_users {
+    width: fit-content;
+    font-size: 0.7em;
+  }
+  .suggested_users .user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+  }
+
+  .user .display_name {
+    text-align: center;
+    font-size: 0.6em;
+    text-wrap: wrap;
+  }
+
+  
+
+  footer {
+    flex-direction: column;
+    align-items: center;
+  }
+}
