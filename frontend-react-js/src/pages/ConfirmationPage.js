@@ -9,7 +9,7 @@ import { Auth } from 'aws-amplify';
 export default function ConfirmationPage() {
   const [email, setEmail] = React.useState('');
   const [code, setCode] = React.useState('');
-  const [errors, setErrors] = React.useState('');
+  const [errors, setErrors] = React.useState([]);
   const [codeSent, setCodeSent] = React.useState(false);
 
   const params = useParams();

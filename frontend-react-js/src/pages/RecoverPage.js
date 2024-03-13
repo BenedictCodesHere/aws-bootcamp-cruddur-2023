@@ -11,7 +11,7 @@ export default function RecoverPage() {
   const [password, setPassword] = React.useState('');
   const [passwordAgain, setPasswordAgain] = React.useState('');
   const [code, setCode] = React.useState('');
-  const [errors, setErrors] = React.useState('');
+  const [errors, setErrors] = React.useState([]);
   const [formState, setFormState] = React.useState('send_code');
 
   const onsubmit_send_code = async (event) => {
