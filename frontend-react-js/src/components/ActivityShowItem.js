@@ -15,7 +15,7 @@ export default function ActivityShowItem(props) {
   attrs.className = 'activity_item expanded'
   return (
     <div {...attrs}>
-      <div className="acitivty_main">
+      <div className="activity_main">
         <div className='activity_content_wrap'>
           <div className='activity_content'>
             <Link className='activity_avatar'to={`/@`+props.activity.handle} ></Link>
@@ -39,7 +39,7 @@ export default function ActivityShowItem(props) {
         </div>
 
         <div className='expandedMeta'>
-          <div class="created_at">
+          <div className="created_at">
             {format_datetime(props.activity.created_at)}
           </div>
         </div>

@@ -22,7 +22,7 @@ export default function ConfirmationPage() {
   }
 
   const resend_code = async (event) => {
-    setErrors('')
+    setErrors([])
     try {
       await Auth.resendSignUp(email);
       console.log('code resent successfully');
@@ -33,9 +33,9 @@ export default function ConfirmationPage() {
       // for this to be an okay match?
       console.log(err)
       if (err.message === 'Username cannot be empty'){
-        setErrors("You need to provide an email in order to send Resend Activation Code")   
+        setErrors(["You need to provide an email in order to send Resend Activation Code"])   
       } else if (err.message === "Username/client id combination not found."){
-        setErrors("Email is invalid or cannot be found.")   
+        setErrors(["Email is invalid or cannot be found."])   
       }
     }
   }
@@ -43,12 +43,12 @@ export default function ConfirmationPage() {
 
   const onsubmit = async (event) => {
     event.preventDefault();
-    setErrors('')
+    setErrors([])
     try {
       await Auth.confirmSignUp(email, code);
       window.location.href = "/"
     } catch (error) {
-      setErrors(error.message)
+      setErrors([error.message])
     }
     return false
   }

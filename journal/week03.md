@@ -116,7 +116,8 @@ The functions are imported on every page where the authorization needs to be che
 
 ### Backend
 
-In the ```app.py```
+In `app.py`:
+
 ```py
 
 def data_home():
