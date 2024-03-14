@@ -86,12 +86,13 @@
 
 
 
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 768px){
   .profile-info {
     display: flex;
     flex-direction: column;
+    margin-top: 100px;
   }
   .profile-avatar{
-    max-width: 36px;
+    max-width: 40px;
   }
 }

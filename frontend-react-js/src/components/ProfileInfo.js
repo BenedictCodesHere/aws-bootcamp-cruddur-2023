@@ -1,6 +1,6 @@
 import './ProfileInfo.css';
 import ProfileAvatar from './ProfileAvatar.js'
-import {ReactComponent as ElipsesIcon} from './svg/elipses.svg';
+// import {ReactComponent as ElipsesIcon} from './svg/elipses.svg';
 import React from "react";
 
 // [TODO] Authenication
@@ -13,6 +13,7 @@ export default function ProfileInfo(props) {
     setPopped(!popped)
   }
 
+
   const signOut = async () => {
     try {
         await Auth.signOut({ global: true });
@@ -22,7 +23,7 @@ export default function ProfileInfo(props) {
         console.log('error signing out: ', error);
     }
   }
-  
+
   const classes = () => {
     let classes = ["profile-info-wrapper"];
     if (popped === true){
@@ -42,7 +43,7 @@ export default function ProfileInfo(props) {
           <div className="profile-display-name">{props.user.display_name || "My Name" }</div>
           <div className="profile-username">@{props.user.handle || "handle"}</div>
         </div>
-        <ElipsesIcon className='icon' />
+        {/* <ElipsesIcon className='icon' /> */}
       </div>
     </div>
   )

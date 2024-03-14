@@ -57,14 +57,24 @@ nav button.post {
 }
 
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 768px) {
   nav {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
     padding-top: 0px;
     /* position: fixed; */
     max-width: 16vw;
     justify-content: center;
+    margin: 0;
+  
+    flex-shrink: 1;
+    width: 120px;
+    
+    padding-top: 0px;
+    padding-right: 8px;
+    
   }
 
   /* .primary {
@@ -73,17 +83,25 @@ nav button.post {
     justify-content: flex-end;
   } */
   nav button.post {
+    
     display: block;
     background: rgba(149,0,255,1);
     color: #fff;
     border: none;
     text-decoration: none;
-    border-radius: 999px;
-    width: 30px;
+    border-radius: 10px;
+    
+    width: 100%;
+    height: 48px;
     font-size: 15px;
     font-weight: 600;
     text-align: center;
     margin-top: 0px;
+    margin-left: 5px;
+  }
+
+  nav button.post:hover, nav button.post:active {
+    background: rgba(217, 40, 240, 0.8);
   }
 
   .sidebar-word {
