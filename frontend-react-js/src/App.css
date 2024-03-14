@@ -3,12 +3,13 @@ main, article {
   width: 100%;
 }
 
+
 .content-wrapper {
   display: flex;
 }
 
 .content {
-  /* width: 600px; */
+  width: 50vw;
   height: 100%;
   /* background: var(--fg); */
 }
