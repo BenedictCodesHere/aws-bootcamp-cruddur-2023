@@ -2,6 +2,7 @@ form.activity_form {
   padding: 16px;
   display: flex;
   flex-direction: column;
+  border: 1px solid rgba(212, 175, 239, 0.8);
 }
 
 form.activity_form textarea {
@@ -99,4 +100,19 @@ form.activity_form select {
   background-position-y: 50%;
   position: relative;
   z-index: 1;
+}
+
+.closeIcon-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  height: 30px;
+  width: 30px;
+
+  margin-right: 300px;
+}
+
+.close-icon{
+  fill: rgba(149,0,255,0.8);
+  height: inherit;
+  width: inherit;
 }

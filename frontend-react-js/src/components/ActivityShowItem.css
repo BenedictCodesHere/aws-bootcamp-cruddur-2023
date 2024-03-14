@@ -1,0 +1,87 @@
+/* .activity_show_item {
+  display: flex;
+  flex-direction: column;
+  border-bottom: solid 1px rgb(60,54,79);
+  overflow: hidden;
+  padding: 16px;
+}
+
+.activity_show_item.clickable:hover {
+  cursor: pointer;
+}
+
+a.activity_show_item:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+.replies {
+  padding-left: 24px;
+  background: rgba(255,255,255,0.15);
+}
+.replies .activity_show_item{
+  background: var(--fg);
+}
+
+.activity_show_main {
+  padding: 16px;
+}
+
+.activity_show_item:last-child {
+  border-bottom: none;
+}
+
+.activity_show_item .activity_show_actions {
+  display: flex;
+  align-items: flex-end;
+  padding-top: 16px;
+  padding-left: 60px;
+}
+
+.activity_show_item .activity_show_actions .action{
+  flex-grow: 1;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 999px;
+  display: flex;
+  flex-direction: row;
+  gap: 12px
+}
+
+.activity_show_item .activity_show_actions .action .counter{
+  color: rgba(255,255,255,0.8);
+  font-weight: 800;
+}
+
+.activity_show_item .activity_show_actions .icon{
+  height: 18px;
+  width: 18px;
+  fill: #fff;
+}
+
+.activity_show_item .activity_show_actions .action:hover {
+  background: rgba(149,0,255,0.2);
+}
+
+.activity_show_item .activity_show_actions .action:hover .icon {
+  fill: rgb(149,0,255);
+}
+
+.activity_show_item.expanded .activity_show_content {
+  display: flex;
+  border: 1px solid white;
+  
+}
+.activity_show_item.expanded .activity_show_content .activity_show_identity{
+  flex-grow: 1;
+} */
+
+.expandedMeta {
+  padding-top: 16px;
+}
+.created_at {
+  color: #FFFFFF80;
+}
+
+.message {
+  color: white;
+}

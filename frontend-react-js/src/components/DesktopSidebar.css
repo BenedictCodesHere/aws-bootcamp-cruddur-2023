@@ -19,3 +19,42 @@ section footer a {
 section footer a:hover {
   color: rgba(255,255,255,1);
 }
+
+
+@media only screen and (max-width: 768px) {
+  /* Hide the Sidebar entirely on smaller screens - DON'T JUST DISPLAY NONE section AS THERE ARE OTHER SECTION ELEMENTS */
+  section .suggested_users, section .trendings, section .search_field, section footer {
+    display: none;
+  }
+  /* .trendings {
+    width: fit-content;
+    
+  }
+  .trendings span {
+    font-size: 0.7em;
+  }
+
+  .suggested_users {
+    width: fit-content;
+    font-size: 0.7em;
+  }
+  .suggested_users .user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+  }
+
+  .user .display_name {
+    text-align: center;
+    font-size: 0.6em;
+    text-wrap: wrap;
+  }
+
+  
+
+  footer {
+    flex-direction: column;
+    align-items: center;
+  } */
+}

@@ -1,10 +1,5 @@
 # Week 11 - Fixing Application Errors In Staging
 
-### Links To External Resources
-https://yocollab.medium.com/lamba-private-vpc-endpoint-and-secrets-manager-2d35e4899a0c
-
-https://repost.aws/knowledge-center/lambda-secret-vpc
-
 ## Static Build for Frontend
 
 Our application architecture now looks like:
@@ -374,7 +369,7 @@ secrets_extension_endpoint = "http://localhost:" + \
 ## Troubleshooting Lambda Timeout
 After many headaches, I got to the bottom of why the Lambda function execution would time out when attempting to get the secret.
 
-Here are the steps from this useful article: https://yocollab.medium.com/lamba-private-vpc-endpoint-and-secrets-manager-2d35e4899a0c
+Here are the steps from this useful article: `https://yocollab.medium.com/lamba-private-vpc-endpoint-and-secrets-manager-2d35e4899a0c`
 
 ```
 
@@ -399,6 +394,216 @@ I also updated the code to obscure some more of the data, the `SECRET_NAME` bein
 
 
 ## Issues with Creating an Activity
-![CORS_api_activities](./assets/week11/CORS_api_activities.png) 
+I ran into issues where CORS was causing problems for me on the production side.
 
-![CORS_api_activities_home](./assets/week11/CORS_api_activities_home.png)
+## Architectural Amendments
+```
+Amendments to Consider:
+Remove the Frontend Target Group: Since your frontend is now served via CloudFront and S3, you can remove the target group for the frontend. This simplifies your architecture and reduces unnecessary components.
+
+Update CloudFront Distribution: Ensure your CloudFront distribution is configured to serve your S3 bucket content for the frontend. This includes setting up the origin to point to your S3 bucket and configuring cache behavior rules if necessary.
+
+Configure CloudFront for API Requests: If you haven't already, consider configuring a separate behavior in your CloudFront distribution for API requests that forwards requests to your backend (via the ALB). This allows you to use a single domain for both your API and frontend, with CloudFront routing requests appropriately based on the path pattern.
+
+DNS and ACM: Make sure your DNS is correctly configured to point to your CloudFront distribution, and that you have an SSL/TLS certificate managed by AWS Certificate Manager (ACM) for your domain. This certificate should be associated with your CloudFront distribution to enable HTTPS.
+
+Security and Access Control: Review the security policies for your S3 bucket to ensure it's only accessible via your CloudFront distribution (e.g., using an Origin Access Identity), and verify that your CloudFront distribution and ALB have appropriate security groups and WAF (Web Application Firewall) rules as needed.
+
+Monitoring and Logging: Utilize CloudWatch, CloudTrail, and AWS X-Ray (as already depicted in your diagram) for monitoring, logging, and tracing to gain insights into your application's performance and troubleshoot any issues.
+```
+
+
+
+### Temporarily alter avatar bucket policy
+
+```json
+[
+    {
+        "AllowedHeaders": ["*"],
+        "AllowedMethods": ["PUT"],
+        "AllowedOrigins": ["*"],
+        "ExposeHeaders": [
+            "x-amz-server-side-encryption",
+            "x-amz-request-id",
+            "x-amz-id-2"
+        ],
+        "MaxAgeSeconds": 3000
+    }
+]
+```
+
+```json
+[
+    {
+        "AllowedHeaders": [
+            "*"
+        ],
+        "AllowedMethods": [
+            "PUT"
+        ],
+        "AllowedOrigins": [
+            "*.gitpod.io"
+        ],
+        "ExposeHeaders": [
+            "x-amz-server-side-encryption",
+            "x-amz-request-id",
+            "x-amz-id-2"
+        ],
+        "MaxAgeSeconds": 3000
+    }
+]
+```
+
+
+## To Fix: CloudFront still Access Denied, can't figure out why.
+
+
+
+
+## Development Fixes - Backend
+
+### Refactoring of backend codebase
+All of this takes place in `./backend-flask`
+
+### Creating JWT decorator
+I split the token verification component away into `lib/cognito_jwt_token.py` 
+
+
+### Separating app content into lib and routes folders
+I separated the initialisation of xray, cors, cloudwatch, and honeycomb, and also created a helpers from where I can import a DRY model schema for the `model_json` that is getting returned on different routes.
+
+I created a `routes` folder and from here I can reference the endpoints that we have for the different components of the application in the main `app.py`.
+
+The 4 main files in the `routes` folder are:
+`activities.py`
+`general.py`
+`messages.py`
+`users.py`
+
+### Updating the Replies functionality
+I amended the `services/create_reply.py` and `routes/activities.py` to make sure they are using the `cognito_user_id` property instead of user_handle as this is now what we are using throughout our application as the way of identifying the user in the application and the database.
+
+I created a `./db/sql/activities/reply.sql` file which should insert the correct user_uuid, message, and reply_to_activity_uuid.
+
+### Database schema migration - incorrect column type
+There was an error being generated due to the incorrect type of the `reply_to_activity_uuid` column in the `activities` table of our postgres database. In order to fix this, I created a new migration using the:
+`../bin/generate/migration reply_to_activity_uuid_to_uuid` which generates out a new timestamped python file in our `db/migrations` folder. I inserted the relevant SQL in order to update the type of the column to the correct one.
+
+## Development Fixes - Frontend
+### Adding in more thorough error handling for the fetch requests
+Developed a `src/components/FormErrors.js` and `src/components/FormErrorItem.js`.
+
+`FormErrorItem.js` contains a `switch` statement that contains cases for the different errors codes that you are likely to run into in the application.
+
+`FormErrors.js` maps over the errors that are passed into it via `props` and returns the relevant `FormErrorItem` based on the error code.
+
+`FormErrors.js`:
+
+```javascript
+
+import './FormErrors.css';
+import FormErrorItem from 'components/FormErrorItem';
+
+export default function FormErrors(props) {
+  let el_errors = null
+
+  if (props.errors.length > 0) {
+    el_errors = (<div className='errors'>
+      {props.errors.map(err_code => {
+        return <FormErrorItem err_code={err_code} />
+      })}
+    </div>)
+  }
+
+  return (
+    <div className='errorsWrap'>
+      {el_errors}
+    </div>
+  )
+}
+
+```
+
+And a snippet from `FormErrorItem.js`:
+
+```javascript
+export default function FormErrorItem(props) {
+    const render_error = () => {
+      switch (props.err_code)  {
+        // HTTP
+        case 'generic_500':
+          return "An internal server error has occured"
+          break;
+        case 'generic_403':
+          return "You are not authorized to perform this action"
+          break;
+
+        // Continued....
+
+        // Replies
+    case 'activity_uuid_blank':
+              return "The post id cannot be blank"
+              break;
+
+      }
+    }
+
+// Continued....
+
+ return (
+      <div className="errorItem">
+        {render_error()}
+      </div>
+    )
+  }
+```
+
+The idea is that
+
+## Production
+### Notes
+- Need to update the `SYNC_CLOUDFRONT_DISTRIBUTION_ID` env var for the frontend when syncing
+- Review whether Service stack needs updating with DDB Message Table
+- Create the machine user for database messaging
+
+## Production Deployment
+### Creating a Machine User and Associating with ECS Service
+
+
+### Updating the Lambda for Uploading Avatars
+Checking the `CruddurAvatarUpload` function, I saw that the allowed origin was only allowing the dev and not the prod origin. This explained some of the reason why I was struggling earlier with CORS issues in the production environment at this stage. I updated the lambda function code so that the origin header would be checked against an array of the allowed origins (only the prod and dev URLs are allowed anyway so just two currently), and if the origin header matches one of these, then set the allow-origin response to be whichever of these it is.
+
+```ruby
+
+allowed_origins = [
+    ENV["ORIGIN_URL_PROD"],
+    ENV["ORIGIN_URL_DEV"]
+  ]
+  # Extract the origin of the current request
+  current_origin = event['headers']['origin'] if event['headers'].key?('origin')
+  
+  # Check if the current origin is in the list of allowed origins
+  # If it is, set it as the 'Access-Control-Allow-Origin', else use nil
+  cors_origin = allowed_origins.include?(current_origin) ? current_origin : nil
+
+  ...
+  
+  ```
+  Then set it here:
+  ```ruby
+ 
+  "Access-Control-Allow-Origin": cors_origin,
+
+  ```
+
+## Areas to Improve
+Refactor this to use Parameter Store rather than environment variables, and build it into the Gitpod workflow so that each time a new workspace is launched, a task is run which retrieves the `ORIGIN_URL_DEV` or whatever the relevant parameter is, checks if the current workspace URL matches, and if not then updates the `ORIGIN_URL_DEV` in the parameter store. Note that it is specifically the frontend url so this might be something which should in fact be triggered as part of any docker compose workflow, rather than constructing the URL on workspace deploy, as the URL is in fact composed of a port number and so on in how Gitpod structures its URLs for running services.
+
+This architecture using Parameter Store would make more sense in terms of automation and only pulling in those variables at runtime, it would be easier to programmatically update the `ORIGIN_URL_DEV` in this way rather than directly in the Lambda's environment variables or hardcoding.
+
+This is in fact something that ideally would be built into a number of things in the architecture, wherever any policies or permissions rely on a frontend development URL being a particular URL, and we want to avoid wildcarding wherever possible to make sure that the Principle Of Least Privilege is followed.
+
+
+
+## Removing the Frontend Target Group from the Load Balancer
+The target group for the frontend service hosted on ECS no longer applies, as we have moved the frontend architecture to CloudFront and S3. The application will never route requests through to the frontend target group in this manner, and there is no service or task running there. This means that I can tear down the target group and listener rules for the frontend, and make the relevant changes also to the CloudFormation `service` stack.

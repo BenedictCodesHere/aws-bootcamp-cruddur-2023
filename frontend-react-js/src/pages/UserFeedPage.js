@@ -21,7 +21,7 @@ export default function UserFeedPage() {
   const dataFetchedRef = React.useRef(false);
 
   const params = useParams();
-
+  console.log("user", user);
   const loadData = async () => {
     const url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/@${params.handle}`
     get(url,{
@@ -46,22 +46,24 @@ export default function UserFeedPage() {
   }, [])
 
   return (
-    <article>
-      <DesktopNavigation user={user} active={'profile'} setPopped={setPopped} />
-      <div className='content'>
-        <ActivityForm popped={popped} setActivities={setActivities} />
-        <ProfileForm 
-          profile={profile}
-          popped={poppedProfile} 
-          setPopped={setPoppedProfile} 
-        />
-        <div className='activity_feed_heading'>
-          <ProfileHeading setPopped={setPoppedProfile} profile={profile} />
-          <ActivityFeed activities={activities} />
+    <div className='content-wrapper'>
+      <article>
+        <DesktopNavigation user={user} active={'profile'} setPopped={setPopped} />
+        <div className='content profile-content'>
+          <ActivityForm popped={popped} setActivities={setActivities} />
+          <ProfileForm 
+            profile={profile}
+            popped={poppedProfile} 
+            setPopped={setPoppedProfile} 
+          />
+          <div className='activity_feed_heading'>
+            <ProfileHeading setPopped={setPoppedProfile} profile={profile} />
+            <ActivityFeed activities={activities} />
+          </div>
+          
         </div>
-       
-      </div>
+      </article>
       <DesktopSidebar user={user} />
-    </article>
+    </div>
   );
 }

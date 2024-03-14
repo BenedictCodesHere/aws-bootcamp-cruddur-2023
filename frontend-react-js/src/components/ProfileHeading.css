@@ -53,3 +53,28 @@
     padding: 16px;
     color: rgba(255,255,255,0.7);
 }
+
+
+
+@media only screen and (max-width: 768px){
+    .profile_heading .profile-avatar {
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        width: 148px;
+        height: 148px;
+        border-radius: 999px;
+        border: solid 8px var(--fg);
+        background-color: var(--fg);
+    }
+
+    .avatar-wrapper .profile-avatar {
+        max-width: 100px;
+        max-height: 100px;
+        position: relative;
+        top: 150px;
+        
+        
+    }
+
+}

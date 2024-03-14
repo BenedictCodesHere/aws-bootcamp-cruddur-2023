@@ -12,7 +12,7 @@ export default function DesktopNavigation(props) {
   let messagesLink;
   let profileLink;
   if (props.user) {
-    button = <CrudButton setPopped={props.setPopped} />;
+    button = <CrudButton active={props.active} setPopped={props.setPopped} />;
     profile = <ProfileInfo user={props.user} />;
     notificationsLink = <DesktopNavigationLink 
       url="/notifications" 
@@ -33,7 +33,10 @@ export default function DesktopNavigation(props) {
 
   return (
     <nav>
+      <div className='logo-wrapper'>
       <Logo className='logo' />
+      </div>
+      
       <DesktopNavigationLink url="/" 
         name="Home"
         handle="home"

@@ -5,16 +5,22 @@
     padding: 0px 16px;
   }
   
-  .back:hover {
-    color: rgba(255,255,255,1)
-  }
+.back:hover {
+  color: rgba(255,255,255,1)
+}
+
+.activity_feed_heading.flex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.activity_feed_heading.flex .title{
+  flex-grow: 1
+}
+
+
+.activity_feed {
+  background: var(--fg);
+}
   
-  .activity_feed_heading.flex {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-  
-  .activity_feed_heading.flex .title{
-    flex-grow: 1
-  }

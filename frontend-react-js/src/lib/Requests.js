@@ -1,9 +1,8 @@
 import {getAccessToken} from 'lib/CheckAuth';
 
 async function request(method,url,payload_data,options){
-  console.log(options)
   if (options.hasOwnProperty('setErrors')){
-    options.setErrors('')
+    options.setErrors([])
   }
   let res
   try {
@@ -33,14 +32,13 @@ async function request(method,url,payload_data,options){
       if (options.setErrors !== null){
         options.setErrors(data)
       }
-      console.log(res,data)
     }
   } catch (err) {
     console.log('request catch',err)
     if (err instanceof Response) {
         console.log('HTTP error detected:', err.status); // Here you can see the status.
         if (options.hasOwnProperty('setErrors')){
-          options.setErrors([`generic_${err.status}`]) // Just an example. Adjust it to your needs.
+          options.setErrors([`generic_${err.status}`]) // example. To adjust.
         }
     } else {
       if (options.hasOwnProperty('setErrors')){

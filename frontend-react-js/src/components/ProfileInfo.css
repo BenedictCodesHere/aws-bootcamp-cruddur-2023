@@ -83,3 +83,29 @@
 .profile-dialog button:hover {
   background: rgba(255,255,255,0.1)
 }
+
+
+
+@media only screen and (max-width: 768px){
+  .profile-info {
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
+  }
+  .profile-avatar{
+    max-width: 40px;
+  }
+  .profile-avatar::after{
+    content: "Sign Out";
+    text-align: center;
+    color: white;
+    position: relative;
+    top: 50px;
+    left: -1px;
+    font-weight: 500;
+    display: inline-block;
+  }
+  /* .sign-out{
+    padding: 0px;
+  } */
+}

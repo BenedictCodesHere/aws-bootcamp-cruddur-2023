@@ -49,10 +49,8 @@ Parameters:
     Default: 5kpmh3dqov122csos8han91suk
   EnvFrontendUrl:
     Type: String
-    Default: "*"
   EnvBackendUrl:
     Type: String
-    Default: "*"
   SecretsAWSAccessKeyId:
     Type: String
     Default: 'arn:aws:ssm:us-east-1:538323670807:parameter/cruddur/backend-flask/AWS_ACCESS_KEY_ID'

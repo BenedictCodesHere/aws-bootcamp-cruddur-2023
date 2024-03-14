@@ -105,3 +105,36 @@ article.signin-article button[type='submit'] {
   text-decoration: none;
   font-weight: 600;
 }
+
+
+@media only screen and (max-width: 600px){
+  article.signin-article {
+    width: 100vw;
+    height: 100vh;
+  }
+  article.signin-article {
+    display: flex;
+    flex-direction: column;
+  }
+
+  article.signin-article .signin-info{
+    display: flex;
+    justify-content: center;
+    max-height: 10vh; 
+  }
+  article.signin-article .signin-info svg {
+    max-height: 90%;
+  }
+
+  article.signin-article .signin-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100vw;
+    height: 90vh;
+  }
+
+  article.signin-article form {
+    padding: 0px 60px;
+  }
+}

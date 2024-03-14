@@ -23,6 +23,7 @@
 
 .suggested_users .user span {
   display: block;
+  text-wrap: balance;
 }
 
 .suggested_users .user span.handle {
@@ -37,4 +38,11 @@
   border-radius: 999px;
   flex-shrink: 0;
   margin-right: 12px;
+}
+
+@media only screen and (max-width: 600px){
+  .suggested_users .user span.handle {
+    font-size: 8px;
+    color: rgba(255,255,255,0.5)
+  }
 }
