@@ -104,7 +104,7 @@ export default function SignupPage() {
           </div>
           <FormErrors errors={errors} />
           <div className='submit'>
-            <button type='submit'>Sign Up</button>
+            <button className="signup-button" type='submit'>Sign Up</button>
           </div>
         </form>
         <div className="already-have-an-account">

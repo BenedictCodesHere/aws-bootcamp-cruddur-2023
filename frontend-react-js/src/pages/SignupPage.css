@@ -111,3 +111,40 @@ article.signup-article button[type='submit'] {
   text-decoration: none;
   font-weight: 600;
 }
+
+
+@media only screen and (max-width: 600px){
+  article.signup-article {
+    width: 100vw;
+    height: 100vh;
+  }
+  article.signup-article {
+    display: flex;
+    flex-direction: column;
+  }
+
+  article.signup-article .signup-info{
+    display: flex;
+    justify-content: center;
+    max-height: 10vh; 
+  }
+  article.signup-article .signup-info svg {
+    max-height: 90%;
+  }
+
+  article.signup-article .signup-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100vw;
+    height: 90vh;
+  }
+
+  article.signup-article form {
+    padding: 0px 60px;
+  }
+
+  article.signup-article form .signup-button {
+    margin: 0 auto;
+  }
+}
