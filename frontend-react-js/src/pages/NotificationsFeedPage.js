@@ -8,6 +8,9 @@ import ActivityForm from 'components/ActivityForm';
 import ReplyForm from 'components/ReplyForm';
 import {get} from 'lib/Requests';
 import {checkAuth} from 'lib/CheckAuth';
+import { useNavigate } from 'react-router-dom';
+
+
 
 export default function NotificationsFeedPage() {
   const [activities, setActivities] = React.useState([]);
@@ -16,6 +19,11 @@ export default function NotificationsFeedPage() {
   const [replyActivity, setReplyActivity] = React.useState({});
   const [user, setUser] = React.useState(null);
   const dataFetchedRef = React.useRef(false);
+
+  const navigate = useNavigate();
+	const goBack = () => {
+		navigate(-1);
+	}
 
   const loadData = async () => {
     const url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/notifications`
@@ -39,33 +47,37 @@ export default function NotificationsFeedPage() {
   }, [])
 
   return (
-    <article>
-      <DesktopNavigation user={user} active={'notifications'} setPopped={setPopped} />
-      <div className='content'>
-        <ActivityForm  
-          popped={popped}
-          setPopped={setPopped} 
-          setActivities={setActivities} 
-        />
-        <ReplyForm 
-          activity={replyActivity} 
-          popped={poppedReply} 
-          setPopped={setPoppedReply} 
-          setActivities={setActivities} 
-          activities={activities} 
-        />
-        <div className='activity_feed'>
-          <div className='activity_feed_heading'>
-            <div className='title'>Notifications</div>
-          </div>
-          <ActivityFeed  
-            setReplyActivity={setReplyActivity} 
+    <div className='content-wrapper'>
+      <article>
+        <DesktopNavigation user={user} active={'notifications'} setPopped={setPopped} />
+        <div className='content'>
+          <ActivityForm  
+            popped={popped}
+            setPopped={setPopped} 
+            setActivities={setActivities} 
+          />
+          <ReplyForm 
+            activity={replyActivity} 
+            popped={poppedReply} 
             setPopped={setPoppedReply} 
+            setActivities={setActivities} 
             activities={activities} 
           />
+          <div className='activity_feed'>
+            <div className='activity_feed_heading'>
+              <div className="back" onClick={goBack}>&larr;</div>	
+              <div className='title'>Notifications</div>
+            </div>
+            <ActivityFeed  
+              setReplyActivity={setReplyActivity} 
+              setPopped={setPoppedReply} 
+              activities={activities} 
+            />
+          </div>
         </div>
-      </div>
-      <DesktopSidebar user={user} />
-    </article>
+        
+      </article>
+      <DesktopSidebar className='notifications-sidebar' user={user} />
+    </div>
   );
 }

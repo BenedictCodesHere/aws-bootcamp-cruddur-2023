@@ -64,17 +64,14 @@ nav button.post {
     align-items: center;
     justify-content: flex-start;
     padding-top: 0px;
-    /* position: fixed; */
+    position: fixed;
+    left: 10px;
     max-width: 16vw;
     justify-content: center;
-    margin: 0;
-  
     flex-shrink: 1;
     width: 120px;
-    
     padding-top: 0px;
     padding-right: 8px;
-    
   }
 
   /* .primary {

@@ -3,16 +3,26 @@ main, article {
   width: 100%;
 }
 
+.content-wrapper {
+  display: flex;
+}
+
 .content {
-  width: 600px;
+  /* width: 600px; */
   height: 100%;
   /* background: var(--fg); */
 }
 
 @media only screen and (max-width: 768px){
+  .content-wrapper {
+    display: block;
+  }
+  
   .content {
     /* margin-left: 10vw; */
     width: 100%;
+    margin-left: 100px;
+
     /* height: 40%; */
 
     /* background: var(--fg); */

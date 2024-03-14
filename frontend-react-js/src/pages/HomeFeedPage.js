@@ -9,6 +9,7 @@ import ActivityForm from 'components/ActivityForm';
 import ReplyForm from 'components/ReplyForm';
 import {get} from 'lib/Requests';
 import {checkAuth} from 'lib/CheckAuth';
+// import { useNavigate } from 'react-router-dom';
 
 
 export default function HomeFeedPage() {
@@ -18,6 +19,11 @@ export default function HomeFeedPage() {
   const [replyActivity, setReplyActivity] = React.useState({});
   const [user, setUser] = React.useState(null);
   const dataFetchedRef = React.useRef(false);
+
+  // const navigate = useNavigate();
+	// const goBack = () => {
+	// 	navigate(-1);
+	// }
 
   const loadData = async () => {
     const url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/home`
@@ -39,38 +45,53 @@ export default function HomeFeedPage() {
 
     loadData();
     checkAuth(setUser);
+    
   }, [])
-
-  return (
-    <article>
+  
+  // If user is logged out, only render the Nav bar and the Join Sidebar.
+  if(!user){
+    return <div>
+     <article>
       <DesktopNavigation user={user} active={'home'} setPopped={setPopped} />
-      <div className='content'>
-        <ActivityForm  
-          popped={popped}
-          setPopped={setPopped} 
-          setActivities={setActivities} 
-          user={user}
-        />
-        <ReplyForm 
-          activity={replyActivity} 
-          popped={poppedReply} 
-          setPopped={setPoppedReply}
-        />
-        <div className='activity_feed'>
-          <div className='activity_feed_heading'>
-            <div className='title'>Home</div>
-          </div>
-          <ActivityFeed 
-            setReplyActivity={setReplyActivity} 
-            setPopped={setPoppedReply} 
-            // TO FIX: INCORRECT HANDLE AND DISPLAY NAME in activities
-            // CHECK: setActivities, database data retrieval
-            activities={activities} 
-          />
-        </div>
-      {/* Sidebar currently showing correct handle and display name.  */}
-      </div>
       <DesktopSidebar user={user} />
     </article>
-  );
+    </div>
+  } else {
+    return (
+      <div className='content-wrapper'>
+        <article>
+          <DesktopNavigation user={user} active={'home'} setPopped={setPopped} />
+          <div className='content'>
+            <ActivityForm  
+              popped={popped}
+              setPopped={setPopped} 
+              setActivities={setActivities} 
+              user={user}
+            />
+            <ReplyForm 
+              activity={replyActivity} 
+              popped={poppedReply} 
+              setPopped={setPoppedReply}
+            />
+            <div className='activity_feed'>
+              <div className='activity_feed_heading'>
+                
+                <div className='title'>Home</div>
+              </div>
+              <ActivityFeed 
+                setReplyActivity={setReplyActivity} 
+                setPopped={setPoppedReply} 
+                // TO FIX: INCORRECT HANDLE AND DISPLAY NAME in activities
+                // CHECK: setActivities, database data retrieval
+                activities={activities} 
+              />
+            </div>
+          {/* Sidebar currently showing correct handle and display name.  */}
+          </div>
+          
+        </article>
+        <DesktopSidebar user={user} />
+      </div>
+    );
+  }
 }
