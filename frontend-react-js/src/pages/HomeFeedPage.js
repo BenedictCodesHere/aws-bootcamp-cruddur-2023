@@ -1,7 +1,7 @@
 import './HomeFeedPage.css';
 import React from "react";
 
-
+import {ReactComponent as Logo} from '../components/svg/logo.svg';
 import DesktopNavigation  from 'components/DesktopNavigation';
 import DesktopSidebar     from 'components/DesktopSidebar';
 import ActivityFeed from 'components/ActivityFeed';
@@ -50,9 +50,12 @@ export default function HomeFeedPage() {
   
   // If user is logged out, only render the Nav bar and the Join Sidebar.
   if(!user){
-    return <div>
-     <article>
-      <DesktopNavigation user={user} active={'home'} setPopped={setPopped} />
+    return <div className='content-wrapper'>
+     <article className='noauth-landing'>
+      <div className='noauth-landing-logo-wrapper'>
+        <Logo />
+      </div>
+      {/* <DesktopNavigation user={user} active={'home'} setPopped={setPopped} /> */}
       <DesktopSidebar user={user} />
     </article>
     </div>
