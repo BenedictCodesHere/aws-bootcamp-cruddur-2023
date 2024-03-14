@@ -2,6 +2,7 @@ import './ActivityForm.css';
 import React from "react";
 import process from 'process';
 import {ReactComponent as BombIcon} from './svg/bomb.svg';
+import {ReactComponent as CloseIcon} from './svg/x.svg' ;
 import {post} from 'lib/Requests';
 import FormErrors from 'components/FormErrors';
 
@@ -15,6 +16,11 @@ export default function ActivityForm(props) {
   classes.push('count')
   if (240-count < 0){
     classes.push('err')
+  }
+
+  const closeBtn = () => {
+    const closeIt = () => {props.setPopped(false)}
+    return(<CloseIcon className='close-icon' onClick={closeIt} />)
   }
 
   const onsubmit = async (event) => {
@@ -60,7 +66,9 @@ export default function ActivityForm(props) {
           value={message}
           onChange={textarea_onchange} 
         />
+        
         <div className='submit'>
+        <div className='closeIcon-wrapper'>{closeBtn()}</div>
           <div className={classes.join(' ')}>{240-count}</div>
           <button type='submit'>Crud</button>
           <div className='expires_at_field'>
@@ -80,6 +88,7 @@ export default function ActivityForm(props) {
           </div>
           <FormErrors errors={errors} />
         </div>
+        
       </form>
     );
   }

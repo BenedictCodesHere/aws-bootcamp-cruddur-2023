@@ -22,8 +22,8 @@ section footer a:hover {
 
 
 @media only screen and (max-width: 768px) {
-  /* Hide the Sidebar entirely on smaller screens */
-  section {
+  /* Hide the Sidebar entirely on smaller screens - DON'T JUST DISPLAY NONE section AS THERE ARE OTHER SECTION ELEMENTS */
+  section .suggested_users, section .trendings, section .search_field, section footer {
     display: none;
   }
   /* .trendings {
