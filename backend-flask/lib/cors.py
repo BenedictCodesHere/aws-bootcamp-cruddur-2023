@@ -10,5 +10,5 @@ def init_cors(app):
     resources={r"/api/*": {"origins": origins}},
     headers=['Content-Type', 'Authorization'], 
     expose_headers='Authorization',
-    methods="OPTIONS,GET,HEAD,POST"
+    methods="OPTIONS,GET,HEAD,POST,PUT"
   )
