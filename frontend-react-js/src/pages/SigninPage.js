@@ -49,7 +49,7 @@ const onsubmit = async (event) => {
           className='signin_form'
           onSubmit={onsubmit}
         >
-          <h2>Sign into your Cruddur account</h2>
+          <h2>Sign into your Cruddurclone account</h2>
           <div className='fields'>
             <div className='field text_field username'>
               <label>Email</label>

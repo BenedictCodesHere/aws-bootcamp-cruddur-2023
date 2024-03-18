@@ -1,33 +1,43 @@
-# FREE AWS Cloud Project Bootcamp
+# Cruddurclone
 
-- Application: Cruddur
-- Cohort: 2023-A1
+This application is designed to be a microblogging service in which users can create posts, reply to others, direct message other users, search the application, view the trending posts about certain topics.
 
-This is the starting codebase that will be used in the FREE AWS Cloud Project Bootcamp 2023
+The posts can be created as temporary posts, set to expire, the time range selected by the user from a dropdown list.
 
-![Cruddur Graphic](_docs/assets/cruddur-banner.jpg)
+Part of the reason for creating this application was to demonstrate my capacity to build a production-grade fullstack application that is hosted on and integrated with AWS services.
 
-![Cruddur Screenshot](_docs/assets/cruddur-screenshot.png)
+The skills that are demonstrated in the development of this project include:
+- Application Architecture design (LucidChart)
+- Cloud networking configuration and routing (Virtual Private Cloud, Security Groups, Route 53)
+- Scaling and load balancing (Application Load Balancer, Elastic Container Service, Target Groups)
+- Responsive frontend web development (React, CSS)
+- Efficient and secure backend development (Python, Flask, Elastic Container Service, Postgres, Relational Database Service, DynamoDB)
+- Managing containerized applications (Docker, Elastic Container Registry, Elastic Container Service)
+- Deploying architecture using YAML templates (CloudFormation)
+- Continuous Integration pipelines (CodeDeploy, Codebuild, CodePipeline)
+- Shell scripting for numerous dev tasks (e.g. seeding database data)
+- Security (Security Groups, Secrets Manager, Systems Manager Parameter Store, Identity and Access Management)
+- Storage (S3)
+- Static Website Hosting (S3)
+- Cache management and invalidation (CloudFront)
+- Serverless where it makes sense (Lambda)
+- Observability and Monitoring (XRay, CloudWatch Logs, CloudTrail)
+- Cloning and modifying an open-source ruby gem's codebase to aid with continuous development 
 
-## Instructions
+## Project Journal
 
-At the start of the bootcamp you need to create a new Github Repository from this template.
+The `/journal` directory contains information about the work that I undertook during the project, the development of the application, and the skills learned.
 
-## Journaling Homework
-
-The `/journal` directory contains
-
-- [ ] [Week 0](journal/week0.md)
-- [ ] [Week 1](journal/week1.md)
-- [ ] [Week 2](journal/week2.md)
-- [ ] [Week 3](journal/week3.md)
-- [ ] [Week 4](journal/week4.md)
-- [ ] [Week 5](journal/week5.md)
-- [ ] [Week 6](journal/week6.md)
-- [ ] [Week 7](journal/week7.md)
-- [ ] [Week 8](journal/week8.md)
-- [ ] [Week 9](journal/week9.md)
-- [ ] [Week 10](journal/week10.md)
-- [ ] [Week 11](journal/week11.md)
-- [ ] [Week 12](journal/week12.md)
-- [ ] [Week 13](journal/week13.md)
+- [Week 0](journal/week0.md)
+- [Week 1](journal/week1.md)
+- [Week 2](journal/week2.md)
+- [Week 3](journal/week3.md)
+- [Week 4](journal/week4.md)
+- [Week 5](journal/week5.md)
+- [Week 6](journal/week6.md)
+- [Week 7](journal/week7.md)
+- [Week 8](journal/week8.md)
+- [Week 9](journal/week9.md)
+- [Week 10](journal/week10.md)
+- [Week 11](journal/week11.md)
+- [Week 12](journal/week12-post-week.md)

@@ -1,4 +1,4 @@
-# Week 0 — Billing and Architecture
+# Week 0 — Project Overview and Architecture
 
 Architectural Diagram - to be updated as time progresses
 
