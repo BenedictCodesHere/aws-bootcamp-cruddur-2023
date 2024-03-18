@@ -16,10 +16,13 @@ export default function DesktopSidebar(props) {
     {"display_name": "Benedict McElroy", "handle": "BenedictCodesHere"}
   ]
 
+  // Good example of conditional rendering for logged in/logged out state
+  let search;
   let trending;
   let suggested;
   let join;
   if (props.user) {
+    search = <Search />
     trending = <TrendingSection trendings={trendings} />
     suggested = <SuggestedUsersSection users={users} />
   } else {
@@ -28,7 +31,7 @@ export default function DesktopSidebar(props) {
 
   return (
     <section>
-      <Search />
+      {search}
       {trending}
       {suggested}
       {join}
