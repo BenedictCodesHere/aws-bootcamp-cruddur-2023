@@ -84,12 +84,10 @@ export default function HomeFeedPage() {
               <ActivityFeed 
                 setReplyActivity={setReplyActivity} 
                 setPopped={setPoppedReply} 
-                // TO FIX: INCORRECT HANDLE AND DISPLAY NAME in activities
-                // CHECK: setActivities, database data retrieval
                 activities={activities} 
               />
             </div>
-          {/* Sidebar currently showing correct handle and display name.  */}
+          {/* Sidebar currently showing outdated display_name. Working on a fix for this - see Journal/Week12-post-week  */}
           </div>
           
         </article>
