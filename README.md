@@ -22,7 +22,8 @@ The skills that are demonstrated in the development of this project include:
 - Cache management and invalidation (CloudFront)
 - Serverless where it makes sense (Lambda)
 - Observability and Monitoring (XRay, CloudWatch Logs, CloudTrail)
-- Cloning and modifying an open-source ruby gem's codebase to aid with continuous development 
+- Cloning and modifying an open-source RubyGem's codebase for use with AWS STS, to aid with continuous development 
+(https://github.com/BenedictCodesHere/aws_s3_website_sync)
 
 ## Project Journal
 
@@ -41,3 +42,14 @@ The `/journal` directory contains information about the work that I undertook du
 - [Week 10](journal/week10.md)
 - [Week 11](journal/week11.md)
 - [Week 12](journal/week12-post-week.md)
+
+## Credits
+The codebase that is contained in the initial commit is thanks to the repository:
+ExamProCo/aws-bootcamp-cruddur-2023
+
+Special thanks go to the originators of this codebase:
+Andrew Brown
+https://github.com/omenking 
+
+Andrew Bayko
+https://github.com/bayko
