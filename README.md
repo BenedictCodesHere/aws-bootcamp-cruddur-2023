@@ -29,19 +29,19 @@ The skills that are demonstrated in the development of this project include:
 
 The `/journal` directory contains information about the work that I undertook during the project, the development of the application, and the skills learned.
 
-- [Week 0](./journal/week0.md)
-- [Week 1](./journal/week1.md)
-- [Week 2](./journal/week2.md)
-- [Week 3](./journal/week3.md)
-- [Week 4](./journal/week4.md)
-- [Week 5](./journal/week5.md)
-- [Week 6](./journal/week6.md)
-- [Week 7](./journal/week7.md)
-- [Week 8](./journal/week8.md)
-- [Week 9](./journal/week9.md)
-- [Week 10](./journal/week10.md)
-- [Week 11](./journal/week11.md)
-- [Week 12](./journal/week12-post-week.md)
+- [Week-0-overview](./journal/week0/week0-overview.md)
+- [week01-containerization](./journal/week01-containerization.md)
+- [week02-tracing](./journal/week02-tracing.md)
+- [week03-jwt-auth-and-verification](./journal/week03-jwt-auth-and-verification.md)
+- [week04-sql-db-rds](./journal/week04-sql-db-rds.md)
+- [week05-nosql-db-dynamodb](./journal/week05-nosql-db-dynamodb.md)
+- [week06-deploying-container](./journal/week06-deploying-container.md)
+- [week07-load-balancing-and-cors](./journal/week07-load-balancing-and-cors.md)
+- [week08-serverless-and-cdk](./journal/week08-serverless-and-cdk.md)
+- [week09-ci-cd-codepipeline](./journal/week09-ci-cd-codepipeline.md)
+- [week10-cloudformation](./journal/week10-cloudformation.md)
+- [week11-fixing-issues](./journal/week11-fixing-issues.md)
+- [week12-post-week](./journal/week12-post-week.md)
 
 ## Credits
 The codebase that is contained in the initial commit is thanks to the repository:
