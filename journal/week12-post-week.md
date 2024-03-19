@@ -157,6 +157,10 @@ const ProfileForm = () => {
 ### Separating Concerns Further between Dev and Prod Environments
 Creating a separate Cognito user pool would make the most sense, as this would allow a fully separate architecture, whereas currently the data that is in the dev application related to users and activities, relies on the same user pool as production. This means that the management of side effects from changes to user and profile related information has to be managed very carefully in the current architecture. It would be much better practice to have separate user pools.
 
+### Messages Functionality
+The messaging was able to work in development, however since refactoring the frontend layout there is no sidebar containing the message groups. I need to test this again in development to check whether the sidebar will be created once I create some messages between users. The ddb database is run locally for development, so this shouldn't be an issue when it comes to data conflicts or corruption, the main need is to separate the architecture for the users fully, i.e. the `Cognito User Pool` and the `Postgres database`.
+
+
 
 
 ## Cost Reduction
@@ -176,4 +180,6 @@ A direction for development would be a shift where possible away from IPv4 to IP
 AWS user.
 
 ### VPC Endpoints
-I have a `VPC Endpoint` for `Secrets Manager` deployed across three AZs in private subnets. I am happy to reduce this down to a single subnet to reduce the costs for this by 2/3rds, without compromising security by still making sure that the 
+I have a `VPC Endpoint` for `Secrets Manager` deployed across three AZs in private subnets. I am happy to reduce this down to a single subnet to reduce the costs for this by 2/3rds, without compromising security by still making sure that the calls to the backend don't traverse the internet but remain in the private AWS network.
+
+
