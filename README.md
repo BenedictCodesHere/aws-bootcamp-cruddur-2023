@@ -1,11 +1,25 @@
 # Cruddurclone
 
+## Contents
+[Overview](#overview)
+
+[Skills and Tech Stack](#skills-and-tech-stack)
+
+[Screenshots](#screenshots)
+
+[Project Journal](#project-journal)
+
+[Credits](#credits)
+
+
+## Overview
 This application is designed to be a microblogging service in which users can create posts, reply to others, direct message other users, search the application, view the trending posts about certain topics.
 
 The posts can be created as temporary posts, set to expire, the time range selected by the user from a dropdown list.
 
-Part of the reason for creating this application was to demonstrate my capacity to build a production-grade fullstack application that is hosted on and integrated with AWS services.
+The main incentive for creating this application was to demonstrate my capacity to build a production-grade fullstack application that is hosted on and integrated with AWS services.
 
+## Skills and Tech Stack
 The skills that are demonstrated in the development of this project include:
 - Application Architecture design (LucidChart)
 - Cloud networking configuration and routing (Virtual Private Cloud, Security Groups, Route 53)
@@ -24,6 +38,20 @@ The skills that are demonstrated in the development of this project include:
 - Observability and Monitoring (XRay, CloudWatch Logs, CloudTrail)
 - Cloning and modifying an open-source RubyGem's codebase for use with AWS STS, to aid with continuous development 
 (https://github.com/BenedictCodesHere/aws_s3_website_sync)
+
+
+Please see the [Project Journal](#project-journal) for a more comprehensive overview of my skills and the journey of building the application.
+
+## Architectural Diagram
+
+![Cruddurclone Diagram](./_docs/assets/cruddurclone_diagram.png)
+
+## Screenshots
+
+![Home Feed Page](./_docs/assets/cruddurclone_homefeed.png)
+
+![Signin Page](./_docs/assets/cruddurclone_signin.png)
+
 
 ## Project Journal
 
@@ -45,9 +73,11 @@ The `/journal` directory contains information about the work that I undertook du
 
 ## Credits
 The codebase that is contained in the initial commit is thanks to the repository:
-ExamProCo/aws-bootcamp-cruddur-2023
+
+https://github.com/ExamProCo/aws-bootcamp-cruddur-2023
 
 Special thanks go to the originators of this codebase:
+
 Andrew Brown
 https://github.com/omenking 
 
