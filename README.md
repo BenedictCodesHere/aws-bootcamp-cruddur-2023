@@ -29,19 +29,19 @@ The skills that are demonstrated in the development of this project include:
 
 The `/journal` directory contains information about the work that I undertook during the project, the development of the application, and the skills learned.
 
-- [Week 0](journal/week0.md)
-- [Week 1](journal/week1.md)
-- [Week 2](journal/week2.md)
-- [Week 3](journal/week3.md)
-- [Week 4](journal/week4.md)
-- [Week 5](journal/week5.md)
-- [Week 6](journal/week6.md)
-- [Week 7](journal/week7.md)
-- [Week 8](journal/week8.md)
-- [Week 9](journal/week9.md)
-- [Week 10](journal/week10.md)
-- [Week 11](journal/week11.md)
-- [Week 12](journal/week12-post-week.md)
+- [Week 0](./journal/week0.md)
+- [Week 1](./journal/week1.md)
+- [Week 2](./journal/week2.md)
+- [Week 3](./journal/week3.md)
+- [Week 4](./journal/week4.md)
+- [Week 5](./journal/week5.md)
+- [Week 6](./journal/week6.md)
+- [Week 7](./journal/week7.md)
+- [Week 8](./journal/week8.md)
+- [Week 9](./journal/week9.md)
+- [Week 10](./journal/week10.md)
+- [Week 11](./journal/week11.md)
+- [Week 12](./journal/week12-post-week.md)
 
 ## Credits
 The codebase that is contained in the initial commit is thanks to the repository:
