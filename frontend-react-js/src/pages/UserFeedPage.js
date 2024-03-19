@@ -21,13 +21,11 @@ export default function UserFeedPage() {
   const dataFetchedRef = React.useRef(false);
 
   const params = useParams();
-  console.log("user", user);
   const loadData = async () => {
     const url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/@${params.handle}`
     get(url,{
       auth: false,
       success: function(data){
-        console.log('setprofile',data.profile)
         setProfile(data.profile)
         setActivities(data.activities)
       }
