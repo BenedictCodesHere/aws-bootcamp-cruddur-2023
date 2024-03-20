@@ -16,8 +16,11 @@ load in the production variables from parameter store or secrets manager
 
 ## Cost
 
-### Reducing the number of endpoints for secrets manager; checking if the endpoints are even necessary
+### Reducing Secrets Manager VPC Endpoints
+See below. Reduced deployment to a single AZ.
 
+### Post Confirmation Lambda
+See below. Reduced deployment to a single AZ.
 
 ## General Config
 
@@ -182,4 +185,12 @@ AWS user.
 ### VPC Endpoints
 I have a `VPC Endpoint` for `Secrets Manager` deployed across three AZs in private subnets. I am happy to reduce this down to a single subnet to reduce the costs for this by 2/3rds, without compromising security by still making sure that the calls to the backend don't traverse the internet but remain in the private AWS network.
 
+### Post Confirmation Lambda
+I have done similar with the Lambda. It is now in one AZ as opposed to the three that it was deployed in before, and the AZ is different from the AZ of the `VPC Endpoint` for `Secrets Manager`. I have tested this in production and it still works.
 
+
+Reducing these two services takes away 4 of the public IPs that were incurring costs every hour, which is a saving of ($0.005 * 4 * 24) which is $0.48 per day or $14.40 every 30 days.
+
+
+## Feature Development - Messaging
+Messaging was something that was working in the development stage during the dynamodb week. I will need to investia
