@@ -48,10 +48,13 @@ Please see the [Project Journal](#project-journal) for a more comprehensive over
 
 ## Screenshots
 
-![Home Feed Page](./_docs/assets/cruddurclone_homefeed.png)
-
 ![Signin Page](./_docs/assets/cruddurclone_signin.png)
 
+![Home Feed Page](./_docs/assets/cruddurclone_homefeed.png)
+
+![Messaging Page](./_docs/assets/cruddurclone_messaging.png)
+
+N.B currently working on fixing some bugs in the messaging feature in production.
 
 ## Project Journal
 

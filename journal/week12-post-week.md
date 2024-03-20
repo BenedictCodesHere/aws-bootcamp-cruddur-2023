@@ -190,3 +190,26 @@ I have done similar with the Lambda. It is now in one AZ as opposed to the three
 
 
 Reducing these two services takes away 4 of the public IPs that were incurring costs every hour, which is a saving of ($0.005 * 4 * 24) which is $0.48 per day or $14.40 every 30 days.
+
+
+## Messaging Feature
+The messaging feature does appear to work.
+
+
+![Cruddurclone Messaging](./assets/week12-post-week/cruddurclone_messaging.png)
+
+
+There are a few problems that I aim to fix.
+
+1. The sidebar on the right hand side doesn't render the existing conversation, the existing `MessageGroup`, properly. 
+    - There should be a visible conversation as I replied to the message `Is this working?` from the other user.
+    - It is worth noting and remembering the structure of the endpoints, as the selected message group uuid is displayed.
+
+2. Currently a hack is required to start a new message group between two users. After `messages/` in the URL, you have to put `new/:handle` replacing the `:handle` with the handle of the user you want to DM. 
+    - After doing this, it rendered the correct user's display name and handle.
+
+The aim would be to create a feature that displays on another user's posts or somewhere in the UI, and clicking on it takes you to that `messages/new/:handle` endpoint.
+
+## Avatar Inconsistently Rendering
+The profile picture or `ProfileAvatar` is only rendering on certain pages or certain components.
+
