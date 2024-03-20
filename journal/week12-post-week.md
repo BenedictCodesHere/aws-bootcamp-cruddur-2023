@@ -61,7 +61,8 @@ For some reason, both times when I have tried to update the rootbucket files wit
 
 
 ## Next Steps Following Deployment
-###  Data Discrepancies
+
+###  Data Discrepancies (`Issue #35` Opened)
 
 ![Data-Discrepancies-User-Profile](./assets/week12-post-week/data_discrepancies_user_profile.png)
 
@@ -163,10 +164,8 @@ const ProfileForm = () => {
 ### Separating Concerns Further between Dev and Prod Environments
 Creating a separate Cognito user pool would make the most sense, as this would allow a fully separate architecture, whereas currently the data that is in the dev application related to users and activities, relies on the same user pool as production. This means that the management of side effects from changes to user and profile related information has to be managed very carefully in the current architecture. It would be much better practice to have separate user pools.
 
-### Messages Functionality
+### Messages Functionality (see Messaging Feature below for updates)
 The messaging was able to work in development, however since refactoring the frontend layout there is no sidebar containing the message groups. I need to test this again in development to check whether the sidebar will be created once I create some messages between users. The ddb database is run locally for development, so this shouldn't be an issue when it comes to data conflicts or corruption, the main need is to separate the architecture for the users fully, i.e. the `Cognito User Pool` and the `Postgres database`.
-
-
 
 
 ## Cost Reduction
@@ -195,7 +194,7 @@ I have done similar with the Lambda. It is now in one AZ as opposed to the three
 Reducing these two services takes away 4 of the public IPs that were incurring costs every hour, which is a saving of ($0.005 * 4 * 24) which is $0.48 per day or $14.40 every 30 days.
 
 
-## Messaging Feature
+## Messaging Feature (`Issue #35` Opened)
 The messaging feature does appear to work.
 
 
@@ -213,7 +212,7 @@ There are a few problems that I aim to fix.
 
 The aim would be to create a feature that displays on another user's posts or somewhere in the UI, and clicking on it takes you to that `messages/new/:handle` endpoint.
 
-## Avatar Inconsistently Rendering
+## Avatar Inconsistently Rendering (`Issue #34` Opened)
 
 ![Avatar-Inconsistent-Rendering](./assets/week12-post-week/avatar_inconsistent_rendering.png)
 
