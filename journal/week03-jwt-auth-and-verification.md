@@ -21,8 +21,8 @@ AWS Amplify Auth, which relies on AWS Cognito, is what we are using to authentic
 imports in the codebase, and it relies on reading a created user from the user pool in Amazon Cognito, and then issuing a JWT which will expire after a given time period, but which is used to authenticate the user's identity on the client side, and allow them to access the logged in version of the application.
 
 ## Logged Out vs Logged In
-![Image of Logged Out Application](./assets/week3/logged-out.png)
-![Image of Logged In Application](./assets/week3/logged-in.png)
+![Image of Logged Out Application](../_docs/assets/cruddurclone_signin.png)
+![Image of Logged In Application](../_docs/assets/cruddurclone_homefeed.png)
 
 ## Pages
 The focus of this week is getting the AUTHENTICATION subset of pages to function correctly:
