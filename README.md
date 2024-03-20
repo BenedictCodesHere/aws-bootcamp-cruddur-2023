@@ -111,19 +111,43 @@ Top:
 
 ## Screenshots
 
+`SignupPage`:
+
+![Signup Page](./_docs/assets/signup_page.png)
+
+`SigninPage`:
+
 ![Signin Page](./_docs/assets/cruddurclone_signin.png)
 
+`RecoverPage`:
+
+![Recover Page](./_docs/assets/recover_page.png)
+
+`HomeFeedPage`:
+
 ![Home Feed Page](./_docs/assets/cruddurclone_homefeed.png)
+
+`NotificationsFeedPage`:
+
+![Notifications Feed Page](./_docs/assets/notificationsfeed_page.png)
+
+`MessageGroupPage`:
 
 ![Messaging Page](./_docs/assets/cruddurclone_messaging.png)
 
 N.B currently working on fixing some bugs in the messaging feature in production.
 
+`UserFeedPage`:
+
+![User Feed Page](./_docs/assets/userfeed_page.png)
+
+
+
 ## Project Journal
 
 The `/journal` directory contains information about the work that I undertook during the project, the development of the application, and the skills learned.
 
-- [Week-0-overview](./journal/week0/week0-overview.md)
+- [Week-0-overview](./journal/week0-overview.md)
 - [week01-containerization](./journal/week01-containerization.md)
 - [week02-tracing](./journal/week02-tracing.md)
 - [week03-jwt-auth-and-verification](./journal/week03-jwt-auth-and-verification.md)
