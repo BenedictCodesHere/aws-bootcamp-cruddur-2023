@@ -190,7 +190,3 @@ I have done similar with the Lambda. It is now in one AZ as opposed to the three
 
 
 Reducing these two services takes away 4 of the public IPs that were incurring costs every hour, which is a saving of ($0.005 * 4 * 24) which is $0.48 per day or $14.40 every 30 days.
-
-
-## Feature Development - Messaging
-Messaging was something that was working in the development stage during the dynamodb week. I will need to investia
