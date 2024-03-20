@@ -46,6 +46,69 @@ Please see the [Project Journal](#project-journal) for a more comprehensive over
 
 ![Cruddurclone Diagram](./_docs/assets/cruddurclone_diagram.png)
 
+On the left of the diagram:
+- `CloudFormation stacks` that you will find in `./aws/cfn/`
+- `Serverless Images (CDK)`
+
+The centre/right:
+- `VPC`,
+- `Subnets`,
+- `Security Groups`,
+- `Load Balancer`,
+- `Route Tables`,
+- `Secrets Manager VPC Endpoint`,
+- `Fargate Cluster`,
+    - `Fargate Service`
+- `RDS Instance`,
+- `Postgres Database`
+- 
+- User Processes
+    - `Signup`
+
+Along the bottom:
+- `Backend Service Pipeline`
+    - `Source`: `Github`
+    - `Build`: `Codebuild`
+    - `Deploy`: `ECS`
+- `ECR Repo(s)`
+    - `backend-flask ECR repo`
+    - `cruddur-python:3-10-slim-buster ECR repo`
+- `ECS Task Definition`
+- `Cloud Map Namespace`
+    - `Cloud Map Resource`
+    - `Cloud Map Service`
+- `IAM Roles`
+    - `CodePipelineRole`
+    - `CruddurServiceTaskRole`
+    - `CruddurServiceExecutionRole`
+
+To the right:
+- `CloudFormation DynamoDB Stack`
+    - `DynamoDB table`
+    - `DynamoDB Stream`
+    - `CruddurMessagingStream Lambda`
+
+
+Top-right:
+- User Processes
+    - `Avatar/Banner Upload`
+        - `API Gateway Lambda Authorizer`
+        - `API Gateway Endpoint`
+        - `API Gateway Integrated Lambda`
+        - `S3 Bucket for initial image upload`
+        - `Lambda for converting image`
+        - `S3 Bucket for processed image`
+
+Top: 
+- `Route 53 Hosted Zone`
+    - `Route 53 Alias (A) Records`
+    - `ACM Certificate`
+    - `CloudFront Distribution`
+    - `CloudFront Origin`
+    - `RootBucket for static website`
+    - `WWWBucket for redirects`
+    - `RootBucketPolicy`
+
 ## Screenshots
 
 ![Signin Page](./_docs/assets/cruddurclone_signin.png)
