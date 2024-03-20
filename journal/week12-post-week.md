@@ -62,6 +62,9 @@ For some reason, both times when I have tried to update the rootbucket files wit
 
 ## Next Steps Following Deployment
 ###  Data Discrepancies
+
+![Data-Discrepancies-User-Profile](./assets/week12-post-week/data_discrepancies_user_profile.png)
+
 Attempting to fix the data propagation issues for the profile, as currently there is a discrepancy between the `display_name` in the `DesktopNavigation` element and the rest of the application. This is down to the data being retrieved via the `loadData` function, `user` variable and the `profile` which gets set as a state variable in the `UserFeedPage`, as well as the activities which render with the correct user `display_name`. Both the `profile` variable and the `activities` data rely on updating and reading the `display_name` from the postgres database, which contains the up-to-date `display_name`, rather than the `Cognito User Pool` which stores as an attribute the `Username` that the user registered with.
 
 The best way to resolve this would be to retain the concepts of a separate `user` related to retrieving Cognito data, and a `profile` variable related to the up-to-date postgres data. 
@@ -211,5 +214,8 @@ There are a few problems that I aim to fix.
 The aim would be to create a feature that displays on another user's posts or somewhere in the UI, and clicking on it takes you to that `messages/new/:handle` endpoint.
 
 ## Avatar Inconsistently Rendering
-The profile picture or `ProfileAvatar` is only rendering on certain pages or certain components.
+
+![Avatar-Inconsistent-Rendering](./assets/week12-post-week/avatar_inconsistent_rendering.png)
+
+The profile picture or `ProfileAvatar` is only rendering on certain pages or certain components. You can see it in the image above, that the user's avatar renders in the `DesktopNavbar`, and not in the `ActivityFeed`.
 
