@@ -1,6 +1,5 @@
 # Cruddurclone
 
-
 ## Contents
 
 [Overview](#overview)
