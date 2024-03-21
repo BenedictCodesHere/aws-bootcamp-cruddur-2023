@@ -218,3 +218,18 @@ The aim would be to create a feature that displays on another user's posts or so
 
 The profile picture or `ProfileAvatar` is only rendering on certain pages or certain components. You can see it in the image above, that the user's avatar renders in the `DesktopNavbar`, and not in the `ActivityFeed`.
 
+
+
+## Making Repository Public
+
+I added a ruleset protecting `main` and `prod` from pushes, adding a requirement of an approver, creating another Github account for myself with 2FA and adding them as a collaborator, and another account which doesn't have that privilege.
+
+I tested locally to see if there was the ability to push directly to `main` from my local dev environment as the admin, which there was, it coming up with a warning about `bypassing rule violations`.
+
+I then tested trying to edit a file directly with the least-privilege account on Github, and it required that I fork it first, and then make a change and open a pull request. 
+
+Once the pull request was open, this was the screen displayed:
+
+![Pull Request Needs Approval](./assets/week12-post-week/review_required_merging_blocked.png)
+
+This shows that the ruleset is working for the attempt to merge into `main`.
