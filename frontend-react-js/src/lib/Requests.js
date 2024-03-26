@@ -30,7 +30,7 @@ async function request(method,url,payload_data,options){
       options.success(data)
     } else {
       if (options.setErrors !== null){
-        options.setErrors(data)
+        options.setErrors([data])
       }
     }
   } catch (err) {

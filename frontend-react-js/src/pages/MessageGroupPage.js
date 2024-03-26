@@ -28,23 +28,25 @@ export default function MessageGroupPage() {
 
   const loadMessageGroupData = async () => {
     const url = `${process.env.REACT_APP_BACKEND_URL}/api/messages/${params.message_group_uuid}`
-    get(url,null,function(data){
-      setMessages(data)
-    })
+    get(url, {
+      success: function(data) {
+        setMessages(data);
+      }
+    });
+    
   }
 
   React.useEffect(()=>{
     //prevents double call
     if (dataFetchedRef.current) return;
     dataFetchedRef.current = true;
-
     loadMessageGroupsData();
     loadMessageGroupData();
     checkAuth(setUser);
   }, [])
   return (
     <article>
-      <DesktopNavigation user={user} active={'home'} setPopped={setPopped} />
+      <DesktopNavigation user={user} active={'messages'} setPopped={setPopped} />
       <section className='message_groups'>
         <MessageGroupFeed message_groups={messageGroups} />
       </section>

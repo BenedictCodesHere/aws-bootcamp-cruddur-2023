@@ -8,9 +8,11 @@ export default function MessageFeed(props) {
         <div className='title'>Messages</div>
       </div>
       <div className='message_feed_collection'>
-        {props.messages.map(message => {
+        {props.messages && props.messages.map(message => {
+        console.log('message', message);
         return  <MessageItem key={message.uuid} message={message} />
-        })}
+        })
+        }
       </div>
     </div>
   );
