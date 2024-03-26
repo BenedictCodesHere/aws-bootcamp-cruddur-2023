@@ -27,3 +27,15 @@ section.message_groups {
   flex-grow: 1;
   overflow: auto;
 }
+
+@media only screen and (max-width: 768px){
+  .message_groups {
+    display: none;
+  }
+
+  .message_group_feed_heading {
+    padding: 16px;
+    padding-bottom: 8px;
+    border-bottom: solid 1px rgb(58,63,78);
+  }
+}

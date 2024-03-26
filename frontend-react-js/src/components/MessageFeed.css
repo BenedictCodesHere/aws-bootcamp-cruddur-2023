@@ -15,3 +15,17 @@
     font-size: 20px;
     font-weight: 600;
 }
+
+
+@media only screen and (max-width: 768px){
+ .message_feed{
+    width: 80vw;
+    height: 80vh;
+ }
+ 
+ .message_feed_heading {
+    padding: 16px;
+    padding-bottom: 8px;
+    border-bottom: solid 1px rgb(58,63,78);
+  }
+}

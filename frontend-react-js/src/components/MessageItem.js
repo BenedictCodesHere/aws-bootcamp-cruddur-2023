@@ -15,7 +15,7 @@ export default function MessageItem(props) {
         </div>{/* message_meta */}
         <div className="message">{props.message.message}</div>
         <div className="created_at" title={format_datetime(props.message.created_at)}>
-          <span className='ago'>{message_time_ago(props.message.created_at)}</span> 
+          <span className='ago'>{format_datetime(props.message.created_at)}</span> 
         </div>{/* created_at */}
       </div>{/* message_content */}
     </div>
