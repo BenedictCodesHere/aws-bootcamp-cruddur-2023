@@ -1,4 +1,5 @@
 form.message_form {
+  background-color: var(--fg);
   padding: 16px;
   display: flex;
   flex-direction: column;

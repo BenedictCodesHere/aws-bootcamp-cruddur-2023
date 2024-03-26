@@ -5,7 +5,7 @@ export default function MessageFeed(props) {
   return (
     <div className='message_feed'>
       <div className='message_feed_heading'>
-        <div className='title'>Messages</div>
+        <div className='title'>Conversation</div>
       </div>
       <div className='message_feed_collection'>
         {props.messages && props.messages.map(message => {

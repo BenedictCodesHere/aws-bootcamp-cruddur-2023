@@ -1,0 +1,17 @@
+.message_feed {
+    background-color: var(--fg);
+    width: 60vw;
+    max-width: 600px;
+}
+
+.message_feed_heading {
+    padding: 16px;
+    padding-bottom: 48px;
+    border-bottom: solid 1px rgb(58, 63, 78);
+}
+
+.message_feed_heading .title {
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+}

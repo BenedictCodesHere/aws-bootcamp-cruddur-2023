@@ -3,6 +3,8 @@
   flex-direction: column;
   overflow: hidden;
   flex-shrink: 0;
+  background: var(--fg);
+  height: 100vh;
 }
 
 .activity_feed_primer {

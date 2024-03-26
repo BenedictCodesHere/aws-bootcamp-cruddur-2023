@@ -53,9 +53,9 @@ export default function MessageGroupsPage() {
           <MessageGroupFeed message_groups={messageGroups} />
           
         </section>
-        <div className='content'>
+        {/* <div className='content'>
           
-        </div>
+        </div> */}
         
       </article>
     </div>
