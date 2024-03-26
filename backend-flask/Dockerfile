@@ -1,4 +1,4 @@
-FROM $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/cruddur-python:3.10-slim-buster
+FROM 538323670807.dkr.ecr.us-east-1.amazonaws.com/cruddur-python:3.10-slim-buster
 
 # Inside container
 # make a new folder
