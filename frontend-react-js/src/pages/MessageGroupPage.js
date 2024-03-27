@@ -48,8 +48,8 @@ export default function MessageGroupPage() {
   return (
     <article>
       <DesktopNavigation user={user} active={'messages'} setPopped={setPopped} />
-      <section className='message_groups'>
-        <MessageGroupFeed message_groups={messageGroups} />
+      <section className="message_groups no_show_sm">
+        <MessageGroupFeed showFeed={"no_show_sm"} message_groups={messageGroups} />
       </section>
       <div className='content messages'>
         <MessagesFeed messages={messages} />
